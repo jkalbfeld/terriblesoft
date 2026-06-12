@@ -15,6 +15,7 @@
       - python3-pip
       - build-essential
       - python3
+      - sqlite3
     state: present
 
 - name: Create app system user
