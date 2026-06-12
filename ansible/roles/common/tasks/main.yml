@@ -7,42 +7,59 @@
 - name: Install system dependencies
   apt:
     name:
-      - curl
       - git
+      - curl
       - nginx
       - certbot
       - python3-certbot-nginx
-      - sqlite3
-      - ufw
+      - python3-pip
+      - build-essential
+      - python3
     state: present
 
 - name: Create app system user
   user:
     name: "{{ app_user }}"
     system: yes
-    shell: /usr/sbin/nologin
-    home: "{{ app_dir }}"
     create_home: no
+    shell: /usr/sbin/nologin
 
-- name: Allow SSH through UFW
-  ufw:
-    rule: allow
-    port: "22"
-    proto: tcp
+- name: Create app directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
 
-- name: Allow HTTP through UFW
-  ufw:
-    rule: allow
-    port: "80"
-    proto: tcp
+- name: Create data directory for SQLite
+  file:
+    path: "{{ data_dir }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0750'
 
-- name: Allow HTTPS through UFW
-  ufw:
-    rule: allow
-    port: "443"
-    proto: tcp
+- name: Set vm.swappiness
+  sysctl:
+    name: vm.swappiness
+    value: '10'
+    state: present
+    reload: yes
 
-- name: Enable UFW
-  ufw:
-    state: enabled
-    policy: deny
+- name: Configure logrotate for nginx
+  copy:
+    dest: /etc/logrotate.d/nginx-terriblesoft
+    content: |
+      /var/log/nginx/terriblesoft*.log {
+        daily
+        missingok
+        rotate 14
+        compress
+        delaycompress
+        notifempty
+        sharedscripts
+        postrotate
+          nginx -s reopen
+        endscript
+      }

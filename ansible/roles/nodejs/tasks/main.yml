@@ -1,32 +1,37 @@
 ---
-- name: Check if Node.js is installed
+- name: Check if Node.js {{ node_version }} is installed
   command: node --version
   register: node_check
   failed_when: false
   changed_when: false
+
+- name: Set node_needs_install fact
+  set_fact:
+    node_needs_install: "{{ node_check.rc != 0 or node_version not in node_check.stdout }}"
 
 - name: Download NodeSource setup script
   get_url:
     url: "https://deb.nodesource.com/setup_{{ node_version }}.x"
     dest: /tmp/nodesource_setup.sh
     mode: '0755'
-  when: node_check.rc != 0
+  when: node_needs_install
 
 - name: Run NodeSource setup script
   command: bash /tmp/nodesource_setup.sh
-  when: node_check.rc != 0
+  when: node_needs_install
 
 - name: Install Node.js
   apt:
     name: nodejs
     state: present
-  when: node_check.rc != 0
+    update_cache: yes
+  when: node_needs_install
 
-- name: Verify Node.js version
+- name: Verify Node.js installation
   command: node --version
-  register: node_version_check
+  register: node_version_out
   changed_when: false
 
-- name: Display Node.js version
+- name: Show Node.js version
   debug:
-    msg: "Node.js version: {{ node_version_check.stdout }}"
+    msg: "Node.js version: {{ node_version_out.stdout }}"
