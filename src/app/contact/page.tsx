@@ -1,5 +1,4 @@
 'use client'
-export const metadata_unused = { title: 'Contact — TerribleSoft™' }
 
 export default function ContactPage() {
   return (
@@ -22,7 +21,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Subject</label>
-                <select className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500">
+                <select className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-gray-300 bg-gray-900 focus:outline-none focus:border-orange-500">
                   <option>General Inquiry</option>
                   <option>Sales</option>
                   <option>Support (Starter)</option>
