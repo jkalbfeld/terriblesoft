@@ -1,40 +1,37 @@
-'use client'
-import Link from 'next/link'
-import { useState } from 'react'
+import Link from 'next/link';
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
   return (
-    <nav className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <Link href="/" className="font-black text-xl tracking-tight">Terrible<span className="text-orange-400">Soft</span>™</Link>
-        <div className="hidden md:flex items-center gap-8 text-sm">
-          <Link href="/products" className="text-gray-400 hover:text-white transition-colors">Products</Link>
-          <Link href="/products" className="text-gray-400 hover:text-white transition-colors">Products</Link>
-          <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link>
-          <Link href="/about" className="text-gray-400 hover:text-white transition-colors">About</Link>
-          <Link href="/press" className="text-gray-400 hover:text-white transition-colors">Press</Link>
-          <Link href="/investors" className="text-gray-400 hover:text-white transition-colors">Investors</Link>
-          <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link>
-          <Link href="/contact" className="bg-orange-500 hover:bg-orange-600 text-black font-bold px-4 py-2 rounded-lg transition-colors">Contact Sales</Link>
-        </div>
-        <button className="md:hidden text-gray-400" onClick={() => setOpen(!open)}>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
-          </svg>
+    <nav className="navbar navbar-expand-lg ts-navbar sticky-top">
+      <div className="container">
+        <Link href="/" className="navbar-brand">
+          <span style={{display:'inline-flex',alignItems:'center',gap:'0.5rem'}}>
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="2" y="2" width="14" height="14" rx="2" fill="#e8780a" opacity="0.9"/>
+              <rect x="8" y="8" width="14" height="14" rx="2" fill="white" opacity="0.25"/>
+              <rect x="6" y="6" width="16" height="16" rx="2" fill="none" stroke="white" strokeWidth="1.5"/>
+            </svg>
+            TerribleSoft™
+          </span>
+        </Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-      </div>
-      {open && (
-        <div className="md:hidden border-t border-gray-800 bg-gray-950 px-6 py-4 space-y-3 text-sm">
-          <Link href="/products" className="block text-gray-400 hover:text-white">Products</Link>
-          <Link href="/pricing" className="block text-gray-400 hover:text-white">Pricing</Link>
-          <Link href="/about" className="block text-gray-400 hover:text-white">About</Link>
-          <Link href="/press" className="block text-gray-400 hover:text-white">Press</Link>
-          <Link href="/investors" className="block text-gray-400 hover:text-white">Investors</Link>
-          <Link href="/careers" className="block text-gray-400 hover:text-white">Careers</Link>
-          <Link href="/contact" className="block text-orange-400 font-bold">Contact Sales</Link>
+        <div className="collapse navbar-collapse" id="mainNav">
+          <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li className="nav-item"><Link href="/products" className="nav-link">Products</Link></li>
+            <li className="nav-item"><Link href="/products" className="nav-link">Products</Link></li>
+            <li className="nav-item"><Link href="/pricing" className="nav-link">Pricing</Link></li>
+            <li className="nav-item"><Link href="/press" className="nav-link">Press</Link></li>
+            <li className="nav-item"><Link href="/about" className="nav-link">About</Link></li>
+            <li className="nav-item"><Link href="/careers" className="nav-link">Careers</Link></li>
+            <li className="nav-item"><Link href="/investors" className="nav-link" style={{color:'rgba(255,140,140,0.85)'}}>Investors</Link></li>
+            <li className="nav-item ms-lg-2">
+              <Link href="/contact" className="ts-btn-primary" style={{fontSize:'0.85rem',padding:'0.5rem 1.25rem'}}>Contact Sales</Link>
+            </li>
+          </ul>
         </div>
-      )}
+      </div>
     </nav>
-  )
+  );
 }

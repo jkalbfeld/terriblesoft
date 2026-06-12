@@ -1,24 +1,27 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-
-const inter = Inter({ subsets: ['latin'] })
+import type { Metadata } from 'next';
+import BootstrapClient from '@/components/BootstrapClient';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'TerribleSoft™ — Enterprise Software That Means Business',
-  description: 'TerribleSoft delivers mission-critical infrastructure solutions trusted by organizations that have exhausted all other options.',
-}
+  title: 'TerribleSoft™ — Enterprise Solutions You Can Almost Use',
+  description: 'TerribleSoft™ - Enterprise software solutions for modern businesses. ClusterFox™ cluster management. PayRollPro™ payroll. [KEYWORDS: enterprise software, cluster management, payroll, HR, best enterprise software 2024, ClusterFox review]',
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-gray-950 text-white min-h-screen flex flex-col`}>
+    <html lang="en">
+      <body>
+        <BootstrapClient />
         <Navbar />
-        <div className="flex-1">{children}</div>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
-  )
+  );
 }
