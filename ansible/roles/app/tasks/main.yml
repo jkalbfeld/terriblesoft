@@ -1,20 +1,4 @@
 ---
-- name: Create app directory
-  file:
-    path: "{{ app_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
-
-- name: Create data directory for SQLite
-  file:
-    path: "{{ app_dir }}/data"
-    state: directory
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
-    mode: '0750'
-
 - name: Clone or update repo
   git:
     repo: "{{ app_repo }}"
@@ -36,16 +20,10 @@
     chdir: "{{ app_dir }}"
   environment:
     NODE_ENV: production
-  when: git_result.changed
+    DATA_DIR: "{{ data_dir }}"
+  when: git_result.changed or (force_build | default(false))
   register: build_result
-
-- name: Force build if requested
-  command: npm run build
-  args:
-    chdir: "{{ app_dir }}"
-  environment:
-    NODE_ENV: production
-  when: not git_result.changed and (force_build | default(false))
+  notify: restart terriblesoft
 
 - name: Copy static assets to standalone directory
   shell: |
@@ -62,7 +40,7 @@
 
 - name: Set ownership on data directory
   file:
-    path: "{{ app_dir }}/data"
+    path: "{{ data_dir }}"
     owner: "{{ app_user }}"
     group: "{{ app_user }}"
     mode: '0750'
@@ -74,7 +52,9 @@
     owner: root
     group: root
     mode: '0644'
-  notify: reload systemd
+  notify:
+    - reload systemd
+    - restart terriblesoft
 
 - name: Enable and start terriblesoft service
   systemd:
@@ -83,8 +63,12 @@
     state: started
     daemon_reload: yes
 
-- name: Restart terriblesoft if code changed
-  systemd:
-    name: terriblesoft
-    state: restarted
-  when: git_result.changed or (force_build | default(false))
+- name: Smoke test - verify app responds
+  uri:
+    url: "http://127.0.0.1:{{ app_port }}/"
+    status_code: 200
+    timeout: 15
+  retries: 5
+  delay: 3
+  register: smoke_test
+  until: smoke_test.status == 200
