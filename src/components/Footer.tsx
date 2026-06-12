@@ -1,64 +1,50 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="ts-footer">
-      <div className="container">
-        <div className="row g-4 mb-4">
-          <div className="col-lg-3">
-            <div className="ts-logo-mark mb-3">
-              <span className="ts-logo-squares" aria-hidden="true" style={{display:'inline-block',position:'relative',width:'18px',height:'18px'}}>
-                <span style={{display:'block',position:'absolute',background:'#e8730a',borderRadius:'2px',width:'12px',height:'12px',top:0,left:0}}></span>
-                <span style={{display:'block',position:'absolute',background:'rgba(255,255,255,0.4)',borderRadius:'2px',width:'12px',height:'12px',top:'5px',left:'5px'}}></span>
-              </span>
-              <span style={{fontWeight:800,color:'#fff',marginLeft:'8px'}}>TerribleSoft™</span>
-            </div>
-            <p style={{fontSize:'0.85rem',lineHeight:1.6}}>Enterprise Solutions You Can Almost Use.<br/><span style={{opacity:0.5}}>Trusted by businesses that had no other options.</span></p>
-            <p style={{fontSize:'0.78rem',opacity:0.5}}>Schaumburg, IL 60173<br/>Est. 1993</p>
+    <footer className="bg-gray-900 border-t border-gray-800 mt-20">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+          <div>
+            <h3 className="font-bold mb-4">Products</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              {['ClusterFox™','FocusFox™','FoxHA™','FoxSync™','FoxGuard™','FoxTrepan™'].map(p => (
+                <li key={p}><Link href={`/products/${p.toLowerCase().replace(/[™®]/g,'').trim()}`} className="hover:text-white transition-colors">{p}</Link></li>
+              ))}
+            </ul>
           </div>
-          <div className="col-6 col-lg-2">
-            <h6>Products</h6>
-            <Link href="/products/clusterfox">ClusterFox™</Link>
-            <Link href="/products/payrollpro">PayRollPro™</Link>
-            <Link href="/products/hrforce">HRForce™</Link>
-            <Link href="/products/medchartcloud">MedChartCloud™</Link>
-            <Link href="/products/supplychainsuite">SupplyChainSuite™</Link>
-            <Link href="/products/insights">TerribleSoft Insights™</Link>
-            <Link href="/products/focusfox">FocusFox™</Link>
+          <div>
+            <h3 className="font-bold mb-4">Company</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              {[['About','/about'],['Careers','/careers'],['Press','/press'],['Investors','/investors']].map(([l,h]) => (
+                <li key={l}><Link href={h} className="hover:text-white transition-colors">{l}</Link></li>
+              ))}
+            </ul>
           </div>
-          <div className="col-6 col-lg-2">
-            <h6>Company</h6>
-            <Link href="/about">About Us</Link>
-            <Link href="/press">Press Releases</Link>
-            <Link href="/careers">Careers</Link>
-            <Link href="/contact">Contact Sales</Link>
-            <Link href="/pricing">Pricing</Link>
+          <div>
+            <h3 className="font-bold mb-4">Resources</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><span className="cursor-default">Documentation</span></li>
+              <li><span className="cursor-default">API Reference</span></li>
+              <li><span className="cursor-default">Status Page</span></li>
+              <li><span className="text-gray-700">v4 Migration Guide</span></li>
+            </ul>
           </div>
-          <div className="col-6 col-lg-2">
-            <h6>Support</h6>
-            <Link href="/support">Support Portal</Link>
-            <Link href="/support">Documentation</Link>
-            <Link href="/support">FoxCare™ Plans</Link>
-            <Link href="/support">Submit a Ticket</Link>
-            <Link href="/support">Community Forum</Link>
-          </div>
-          <div className="col-6 col-lg-3">
-            <h6>Legal</h6>
-            <Link href="#">Terms of Service (847 pages)</Link>
-            <Link href="#">Privacy Policy</Link>
-            <Link href="#">EULA</Link>
-            <Link href="#">Exit Clause (not available)</Link>
-            <Link href="#" style={{fontSize:'0.75rem',opacity:0.5}}>Consumer Division</Link>
-            <div className="ai-artifact" style={{marginTop:'1rem',fontSize:'0.72rem',color:'rgba(255,255,255,0.25)',fontStyle:'italic'}}>
-              Note: Some statistics on this page may be approximate. Please verify before using in a board presentation. — AI Assistant
-            </div>
+          <div>
+            <h3 className="font-bold mb-4">Legal</h3>
+            <ul className="space-y-2 text-sm text-gray-400">
+              <li><span className="cursor-default">Privacy Policy</span></li>
+              <li><span className="cursor-default">Terms of Service</span></li>
+              <li><span className="cursor-default">EULA (482 pages)</span></li>
+              <li><span className="cursor-default">Cookie Policy</span></li>
+            </ul>
           </div>
         </div>
-        <div className="ts-footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
-          <span>© 2024-2024 TerribleSoft™. All rights reserved. Contractually.</span>
-          <span style={{opacity:0.4,fontSize:'0.72rem'}}>ClusterFox™, FoxHA™, FoxOver™, FoxNet™, FoxWatch™, FoxMigrate™, FoxBand™, FoxTrepan™, FocusFox™, GazeVec™, PayRollPro™, HRForce™, MedChartCloud™, SupplyChainSuite™, TerribleSoft Insights™, TerribleSoft Connect™, FoxCare™, FoxScale™ are trademarks of TerribleSoft, Inc.</span>
+        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-gray-600 text-sm">&copy; 2024-2024 TerribleSoft, Inc. All rights reserved. Some rights pending.</p>
+          <p className="text-gray-800 text-xs">This website was built by an AI in approximately one hour. Statistics on this site are approximate. Some statistics are very approximate.</p>
         </div>
       </div>
     </footer>
-  );
+  )
 }

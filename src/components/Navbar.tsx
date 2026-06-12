@@ -1,33 +1,40 @@
-'use client';
-import Link from 'next/link';
+'use client'
+import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false)
   return (
-    <nav className="ts-navbar navbar navbar-expand-lg">
-      <div className="container">
-        <Link className="navbar-brand ts-logo-mark" href="/">
-          <span className="ts-logo-squares" aria-hidden="true">
-            <span></span><span></span>
-          </span>
-          TerribleSoft™
-        </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#tsNav" aria-controls="tsNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon" style={{filter:'invert(1)'}}></span>
-        </button>
-        <div className="collapse navbar-collapse" id="tsNav">
-          <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-            <li className="nav-item"><Link className="nav-link" href="/products">Products</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="#">Products</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="/pricing">Pricing</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="/press">Press</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="/about">About</Link></li>
-            <li className="nav-item"><Link className="nav-link" href="/careers">Careers</Link></li>
-            <li className="nav-item ms-lg-2">
-              <Link className="btn-ts-primary" href="/contact" style={{padding:'0.5rem 1.25rem', fontSize:'0.88rem'}}>Contact Sales</Link>
-            </li>
-          </ul>
+    <nav className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50">
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
+        <Link href="/" className="font-black text-xl tracking-tight">Terrible<span className="text-orange-400">Soft</span>™</Link>
+        <div className="hidden md:flex items-center gap-8 text-sm">
+          <Link href="/products" className="text-gray-400 hover:text-white transition-colors">Products</Link>
+          <Link href="/products" className="text-gray-400 hover:text-white transition-colors">Products</Link>
+          <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link>
+          <Link href="/about" className="text-gray-400 hover:text-white transition-colors">About</Link>
+          <Link href="/press" className="text-gray-400 hover:text-white transition-colors">Press</Link>
+          <Link href="/investors" className="text-gray-400 hover:text-white transition-colors">Investors</Link>
+          <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</Link>
+          <Link href="/contact" className="bg-orange-500 hover:bg-orange-600 text-black font-bold px-4 py-2 rounded-lg transition-colors">Contact Sales</Link>
         </div>
+        <button className="md:hidden text-gray-400" onClick={() => setOpen(!open)}>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={open ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
+          </svg>
+        </button>
       </div>
+      {open && (
+        <div className="md:hidden border-t border-gray-800 bg-gray-950 px-6 py-4 space-y-3 text-sm">
+          <Link href="/products" className="block text-gray-400 hover:text-white">Products</Link>
+          <Link href="/pricing" className="block text-gray-400 hover:text-white">Pricing</Link>
+          <Link href="/about" className="block text-gray-400 hover:text-white">About</Link>
+          <Link href="/press" className="block text-gray-400 hover:text-white">Press</Link>
+          <Link href="/investors" className="block text-gray-400 hover:text-white">Investors</Link>
+          <Link href="/careers" className="block text-gray-400 hover:text-white">Careers</Link>
+          <Link href="/contact" className="block text-orange-400 font-bold">Contact Sales</Link>
+        </div>
+      )}
     </nav>
-  );
+  )
 }
