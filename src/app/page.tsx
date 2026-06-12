@@ -1,101 +1,227 @@
-import Link from 'next/link'
 import SubscribeSection from '@/components/SubscribeSection'
 
 export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-gray-950 text-white">
-      {/* HTML comment accidentally visible */}
-      <pre className="text-gray-900 text-xs px-4 pt-2 select-none">{`<!-- TODO: replace hero copy before launch @marketing -->`}</pre>
+  const testimonials = [
+    {
+      quote: "We deployed ClusterFox across our Solaris cluster in 2019. The migration completed last Tuesday.",
+      attribution: "Dave K., IT Director, Consolidated Widgets LLC"
+    },
+    {
+      quote: "PayRollPro transformed how we process payroll. Employees are paid within the same fiscal quarter they worked.",
+      attribution: "Sandra M., CFO, Regional Something Corp."
+    },
+    {
+      quote: "MedChartCloud crashed during 14 consecutive audits. The interface is very blue.",
+      attribution: "Dr. James T., St. Elsewhere Health System"
+    },
+    {
+      quote: "McKinsey recommended TerribleSoft after a six-month engagement. The engagement cost more than our ClusterFox implementation. Both are ongoing.",
+      attribution: "Anonymous Fortune 500 CTO, currently on sabbatical"
+    },
+    {
+      quote: "Our digital transformation consultant described TerribleSoft as \u2018a bold strategic choice.\u2019 We have since parted ways with that consultant. We have not parted ways with TerribleSoft. The contracts prevent it.",
+      attribution: "Head of Enterprise Architecture, name withheld per settlement agreement"
+    },
+    {
+      quote: "I cannot generate a realistic testimonial for this product as I do not have personal experiences. Please replace this placeholder with a real customer quote.",
+      attribution: "[PLACEHOLDER]"
+    },
+  ];
 
-      {/* Hero */}
-      <section className="max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div className="inline-block bg-orange-500/10 border border-orange-500/30 text-orange-400 text-sm px-4 py-2 rounded-full mb-8">
-          Now with AI — results may vary
-        </div>
-        <h1 className="text-7xl font-black mb-6 leading-tight">
-          Enterprise Software<br />That Means Business™
-        </h1>
-        <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-          TerribleSoft delivers mission-critical infrastructure solutions trusted by organizations that have exhausted all other options.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/products" className="bg-orange-500 hover:bg-orange-600 text-black font-bold px-8 py-4 rounded-lg transition-colors">Explore Products</Link>
-          <Link href="/contact" className="border border-gray-700 hover:border-gray-500 text-white px-8 py-4 rounded-lg transition-colors">Talk to Sales</Link>
+  return (
+    <>
+      {/* HERO */}
+      <section className="ts-hero">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-7">
+              <div className="ts-hero-badge">Now Available: ClusterFox\u2122 11.0</div>
+              <h1>Enterprise Solutions<br/><span className="ts-accent-text">You Can Almost Use</span></h1>
+              <p className="lead" style={{color:'rgba(255,255,255,0.75)',fontSize:'1.1rem',lineHeight:1.7}}>TerribleSoft\u2122 delivers comprehensive enterprise software for organizations that have evaluated their options and arrived here. ClusterFox\u2122, PayRollPro\u2122, HRForce\u2122, and more \u2014 built for the infrastructure you actually have.</p>
+              <p className="ts-hero-sub">Trusted by businesses that had no other options.</p>
+              <div className="d-flex flex-wrap gap-3 mt-4">
+                <a href="/products/clusterfox" className="btn-ts-primary">Explore ClusterFox\u2122</a>
+                <a href="/contact" className="btn-ts-outline">Contact Sales</a>
+              </div>
+            </div>
+            <div className="col-lg-5 mt-5 mt-lg-0">
+              <div className="screenshot-frame">
+                <div className="sf-titlebar">
+                  <span className="sf-dot red"></span>
+                  <span className="sf-dot yellow"></span>
+                  <span className="sf-dot green"></span>
+                  <span>ClusterFox\u2122 FoxWatch\u2122 Dashboard \u2014 v11.0</span>
+                </div>
+                <div className="sf-content">
+                  <table className="table table-sm table-bordered mb-0">
+                    <thead><tr><th>Node</th><th>Status</th><th>Uptime</th><th>Role</th></tr></thead>
+                    <tbody>
+                      <tr><td>fox-node-01</td><td><span className="status-dot status-err"></span>FOXED</td><td>0d 0h 4m</td><td>Primary</td></tr>
+                      <tr><td>fox-node-02</td><td><span className="status-dot status-err"></span>FOXED</td><td>0d 0h 2m</td><td>Primary</td></tr>
+                      <tr><td>fox-node-03</td><td><span className="status-dot status-warn"></span>FOXED</td><td>0d 1h 12m</td><td>Primary</td></tr>
+                      <tr><td>fox-node-04</td><td><span className="status-dot status-unk"></span>UNKNOWN</td><td style={{color:'#f59e0b'}}>last seen 2019-03-14</td><td>Unknown</td></tr>
+                      <tr><td>fox-node-05</td><td><span className="status-dot status-ok"></span>OK</td><td>847d 3h 22m</td><td>Standby</td></tr>
+                    </tbody>
+                  </table>
+                  <p style={{color:'#64748b',fontSize:'0.7rem',marginTop:'0.5rem',marginBottom:0}}>FoxWatch\u2122 alert delivery estimated within 4\u20136 business hours. Pager not included.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Social proof */}
-      <section className="bg-gray-900/50 border-y border-gray-800 py-12">
-        <div className="max-w-5xl mx-auto px-6">
-          <p className="text-center text-gray-600 text-sm mb-8">TRUSTED BY ORGANIZATIONS WORLDWIDE*</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[['10,000+','Enterprises served (approximate)'],['99.9%','Uptime (calculated using our uptime)'],['4','Reverse stock splits'],['847','Support tickets resolved in 2024']].map(([n, l]) => (
-              <div key={n}>
-                <div className="text-3xl font-black text-orange-400 mb-1">{n}</div>
-                <div className="text-gray-500 text-xs">{l}</div>
+      {/* TRUSTED BY */}
+      <div style={{background:'#f8fafc',borderBottom:'1px solid #e2e8f0',padding:'1.5rem 0'}}>
+        <div className="container">
+          <div className="ts-trusted-row">
+            <span style={{fontSize:'0.78rem',color:'#94a3b8',fontWeight:600,marginRight:'1rem',textTransform:'uppercase',letterSpacing:'1px'}}>As Trusted By\u2020</span>
+            <span className="ts-trusted-logo">Enterprise Weakly</span>
+            <span className="ts-trusted-logo">CIO Digest</span>
+            <span className="ts-trusted-logo">The Compliant Quarterly</span>
+            <span className="ts-trusted-logo">Gartner\u2020</span>
+            <span className="ts-trusted-logo">Forrester\u2021</span>
+          </div>
+          <p style={{fontSize:'0.68rem',color:'#cbd5e1',textAlign:'center',marginTop:'0.5rem',marginBottom:0}}>\u2020 ranking methodology not disclosed \u2003 \u2021 as referenced in an internal email we cannot share</p>
+        </div>
+      </div>
+
+      {/* CLUSTERFOX FEATURED */}
+      <section className="ts-section-dark">
+        <div className="container">
+          <div className="row align-items-center g-5">
+            <div className="col-lg-6">
+              <div className="ts-pill mb-3">Flagship Product</div>
+              <h2 className="ts-section-title-white">Introducing ClusterFox\u2122 11.0</h2>
+              <p style={{color:'rgba(255,255,255,0.75)',fontSize:'1rem',lineHeight:1.7}}>The cluster management platform your Wellfleet router deserves. ClusterFox\u2122 delivers enterprise-grade high availability across Solaris, HP-UX, IRIX, and other platforms that represent your infrastructure reality.</p>
+              <p style={{color:'rgba(255,255,255,0.75)',fontSize:'1rem',lineHeight:1.7}}>Featuring FoxHA\u2122, FoxOver\u2122, FoxNet\u2122, FoxWatch\u2122, and FoxMigrate\u2122 \u2014 a complete suite of modules that interoperate seamlessly, provided you have TerribleSoft Connect\u2122 (sold separately).</p>
+              <div className="d-flex flex-wrap gap-3 mt-4">
+                <a href="/products/clusterfox" className="btn-ts-primary">Explore ClusterFox\u2122</a>
+                <a href="/contact" className="btn-ts-outline">Request a Demo</a>
+              </div>
+              <p style={{fontSize:'0.75rem',color:'rgba(255,255,255,0.3)',marginTop:'1rem'}}>Demo subject to availability of demo environment. Demo environment uptime not guaranteed.</p>
+            </div>
+            <div className="col-lg-6">
+              <div className="row g-3">
+                {[{icon:'\u{1F98A}',title:'FoxHA\u2122',desc:'Your cluster will experience significantly fewer outages than before ClusterFox. We cannot be more specific than that.'},{icon:'\u26A1',title:'FoxOver\u2122',desc:'Active/active/also-active failover. At least one node will survive. Probably.'},{icon:'\u{1F310}',title:'FoxNet\u2122',desc:'10base2 coaxial backbone included. BNC terminators sold separately. Do not remove the terminator.'},{icon:'\u{1F441}\uFE0F',title:'FoxWatch\u2122',desc:'Detects outages within 4\u20136 business hours. Alerts delivered via pager. Pager not included.'}].map(m => (
+                  <div key={m.title} className="col-6">
+                    <div style={{background:'rgba(255,255,255,0.05)',borderRadius:'10px',padding:'1.25rem',border:'1px solid rgba(255,255,255,0.08)',height:'100%'}}>
+                      <div style={{fontSize:'1.5rem',marginBottom:'0.5rem'}}>{m.icon}</div>
+                      <h6 style={{color:'#fff',fontWeight:700,marginBottom:'0.4rem'}}>{m.title}</h6>
+                      <p style={{color:'rgba(255,255,255,0.55)',fontSize:'0.8rem',margin:0}}>{m.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURE GRID */}
+      <section className="ts-section">
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="ts-section-title">The Complete Enterprise Suite</h2>
+            <p className="ts-section-subtitle">Every module your organization needs. No module available separately.</p>
+          </div>
+          <div className="row g-4">
+            {[
+              {icon:'\u{1F4B0}',title:'PayRollPro\u2122',desc:'Multi-jurisdiction payroll processing with direct deposit in 1\u20137 business days.',fine:'Tax compliance current as of Q2 2003.'},
+              {icon:'\u{1F465}',title:'HRForce\u2122',desc:'Human Resources management. 14-screen onboarding. Performance ratings from 1 to 1.',fine:'Termination workflow reviewed by legal at least once.'},
+              {icon:'\u{1F3E5}',title:'MedChartCloud\u2122',desc:'HIPAA-compliant* patient record management and appointment scheduling.',fine:'*Compliance module sold separately, $18,000/year. Certified on IE6.'},
+              {icon:'\u{1F4E6}',title:'SupplyChainSuite\u2122',desc:'47 modules. Inventory tracking (\u00b115%). Demand forecasting. Logistics optimization.',fine:'All 47 modules required. No, you cannot buy fewer.'},
+              {icon:'\u{1F4CA}',title:'TerribleSoft Insights\u2122',desc:'Business intelligence dashboards with AI-Powered Analytics\u2122 (linear regression, 1997 edition).',fine:'CSV export columns in random order for security.'},
+              {icon:'\u{1F441}\uFE0F',title:'FocusFox\u2122',desc:'Employee engagement enforcement via GazeVec\u2122 eye-tracking and FoxBand\u2122 haptic feedback.',fine:'Not available in California, the EU, or countries with functioning labor law.'},
+            ].map(f => (
+              <div key={f.title} className="col-md-6 col-lg-4">
+                <div className="ts-card">
+                  <div className="ts-card-icon">{f.icon}</div>
+                  <h5>{f.title}</h5>
+                  <p>{f.desc}</p>
+                  <p className="ts-fine-print">{f.fine}</p>
+                </div>
               </div>
             ))}
           </div>
-          <p className="text-center text-gray-800 text-xs mt-6">* Statistics are approximate. Some statistics are very approximate. The AI that generated this copy noted that it could not verify these figures but felt they sounded plausible.</p>
         </div>
       </section>
 
-      {/* Products grid */}
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-4xl font-black mb-4 text-center">Our Product Suite</h2>
-        <p className="text-gray-400 text-center mb-12">A complete platform for enterprises that demand solutions.</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { href: '/products/clusterfox', name: 'ClusterFox™', desc: 'High availability with multiple simultaneous primaries. Now a feature.' },
-            { href: '/products/focusfox', name: 'FocusFox™', desc: 'Productivity monitoring. FoxScore™ technology. Not available in California.' },
-            { href: '/products/foxha', name: 'FoxHA™', desc: 'Failover that is attempted. Outcome guarantees sold separately.' },
-            { href: '/products/foxsync', name: 'FoxSync™', desc: 'Eventual consistency. Timeline TBD.' },
-            { href: '/products/foxguard', name: 'FoxGuard™', desc: 'Security through professional obscurity. SOC 2 in progress since 2022.' },
-            { href: '/products/foxtrepan', name: 'FoxTrepan™', desc: 'Enterprise cognitive offloading. Consumer division. Consult your enterprise architect.' },
-          ].map(p => (
-            <Link key={p.href} href={p.href} className="bg-gray-900 border border-gray-800 hover:border-orange-500/50 rounded-xl p-6 transition-colors group">
-              <h3 className="font-bold text-lg mb-2 group-hover:text-orange-400 transition-colors">{p.name}</h3>
-              <p className="text-gray-400 text-sm">{p.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="bg-gray-900/50 border-y border-gray-800 py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-black mb-10 text-center">What Our Customers Say</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-              <p className="text-gray-300 italic mb-4">&quot;Whichever node wins, you lose.&quot;</p>
-              <p className="text-gray-600 text-sm">— Verified Customer ✓</p>
+      {/* TESTIMONIALS */}
+      <section className="ts-section-light">
+        <div className="container">
+          <div className="text-center mb-5">
+            <h2 className="ts-section-title">What Our Customers Are Saying</h2>
+            <p className="ts-section-subtitle">Unsolicited feedback from organizations currently under contract.</p>
+          </div>
+          <div id="testimonialCarousel" className="carousel slide" data-bs-ride="carousel">
+            <div className="carousel-inner">
+              {testimonials.map((t, i) => (
+                <div key={i} className={`carousel-item${i===0?' active':''}` }>
+                  <div className="row justify-content-center">
+                    <div className="col-lg-8">
+                      <div className="ts-testimonial">
+                        <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
+                        <div className="attribution">\u2014 {t.attribution}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-              {/* Unreviewed testimonial published directly from form submission */}
-              <p className="text-gray-300 italic mb-4">&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. We have been using ClusterFox for [DURATION] and it has [POSITIVE OUTCOME].&quot;</p>
-              <p className="text-gray-600 text-sm">— [CUSTOMER NAME] — <span className="text-yellow-700 text-xs">NOTE: pending legal review, do not publish — @marketing</span></p>
-            </div>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-              <p className="text-gray-300 italic mb-4">&quot;We had three primaries for six weeks. Our account executive said that was the Enterprise tier. We are on Starter.&quot;</p>
-              <p className="text-gray-600 text-sm">— [REDACTED PER NDA]</p>
-            </div>
-            <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-              <p className="text-gray-300 italic mb-4">&quot;FoxGuard detected zero threats. We later discovered this was because the threat detection service had stopped running. 10/10 would not recommend.&quot;</p>
-              <p className="text-gray-600 text-sm">— Anonymous, Financial Services</p>
+            <div className="d-flex justify-content-center gap-2 mt-3">
+              <button className="btn btn-sm btn-outline-secondary" data-bs-target="#testimonialCarousel" data-bs-slide="prev">\u2039</button>
+              <button className="btn btn-sm btn-outline-secondary" data-bs-target="#testimonialCarousel" data-bs-slide="next">\u203a</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Subscribe */}
-      <SubscribeSection />
-
-      {/* CTA */}
-      <section className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-4xl font-black mb-4">Ready to Get Started?</h2>
-        <p className="text-gray-400 mb-8">Our sales team is standing by to help you understand which tier is right for your organization and why it is probably not the one you think.</p>
-        <Link href="/contact" className="inline-block bg-orange-500 hover:bg-orange-600 text-black font-bold px-10 py-4 rounded-lg transition-colors">Contact Sales →</Link>
+      {/* COMPLIANCE BADGES */}
+      <section className="ts-section" style={{paddingTop:'60px',paddingBottom:'60px'}}>
+        <div className="container">
+          <div className="text-center mb-4">
+            <h5 style={{color:'var(--navy)',fontWeight:700}}>Compliance &amp; Certifications</h5>
+          </div>
+          <div className="ts-badge-row">
+            <div className="ts-compliance-badge"><span>\u2713</span>SOC 2*</div>
+            <div className="ts-compliance-badge"><span>\u2713</span>HIPAA\u2020</div>
+            <div className="ts-compliance-badge"><span>\u2713</span>ISO 27001\u2021</div>
+            <div className="ts-compliance-badge"><span>\u2713</span>GDPR\u00a7</div>
+            <div className="ts-compliance-badge"><span>\u2713</span>Y2K Ready</div>
+          </div>
+          <p style={{fontSize:'0.7rem',color:'#aaa',textAlign:'center',maxWidth:'700px',margin:'1rem auto 0'}}>
+            * Type I only. Report available upon execution of NDA and payment of $2,500 documentation fee.<br/>
+            \u2020 HIPAA compliance module sold separately ($18,000/year).<br/>
+            \u2021 Recertified February 2024. Audit conducted by TerribleSoft internal audit team.<br/>
+            \u00a7 GDPR addendum available in 14 of the 24 required EU languages.
+          </p>
+        </div>
       </section>
-    </main>
-  )
+
+      {/* SUBSCRIBE */}
+      <div id="subscribe">
+        <SubscribeSection />
+      </div>
+
+      {/* AI ARTIFACT */}
+      <section className="ts-section" style={{paddingTop:'2rem',paddingBottom:'3rem'}}>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              {/* TODO: @marketing — replace this section before launch */}
+              <div className="ai-artifact">
+                <strong>Certainly! Here is a professional call-to-action for the TerribleSoft homepage:</strong><br/><br/>
+                Ready to transform your enterprise? TerribleSoft\u2122 offers best-in-class solutions for modern businesses. [INSERT SPECIFIC VALUE PROPOSITION]. Contact our sales team today to schedule a [INSERT MEETING TYPE] and discover how TerribleSoft can [INSERT BUSINESS OUTCOME].<br/><br/>
+                <em style={{color:'#999',fontSize:'0.75rem'}}>[Note to reviewer: I was unable to identify specific differentiators for TerribleSoft products. Please provide product documentation so I can complete this section. \u2014 Content Team, March 2019]</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VISIBLE HTML COMMENT LEAK */}
+      {/* <!-- Note from Weyland-Yutani account team: client asked us to remove the pricing page before IPO. Do not restore. --> */}
+    </>
+  );
 }
