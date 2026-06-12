@@ -1,49 +1,50 @@
-# TerribleSoft Ansible Deployment
+# TerribleSoft Ansible
 
-Idempotent deployment for terriblesoft.com.
+Infrastructure-as-code for terriblesoft.com. Everything is idempotent.
 
-## Requirements
+## Prerequisites
 
-- Ansible 2.14+
-- SSH access to the target host as root
-- DNS already pointing to the target IP
-
-## Usage
-
-### Full deploy (first time or full reprovisioning)
 ```bash
-cd ansible
-ansible-playbook -i inventory/hosts.ini playbooks/deploy.yml
+pip install ansible
 ```
 
-### Fast redeploy after code changes
+SSH key must be authorized on the target host for the `ubuntu` user.
+
+## Full Deploy
+
 ```bash
 cd ansible
-ansible-playbook -i inventory/hosts.ini playbooks/redeploy.yml
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory/hosts.ini playbooks/deploy.yml
 ```
 
-### Force rebuild even if git hasn't changed
+## Fast Redeploy (code changes only)
+
 ```bash
 cd ansible
-ansible-playbook -i inventory/hosts.ini playbooks/redeploy.yml -e force_build=true
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory/hosts.ini playbooks/redeploy.yml
 ```
 
-## What it does
+## Roles
 
-1. **common** — apt deps, system user, UFW firewall
-2. **nodejs** — installs Node.js 22 via NodeSource
-3. **app** — clones repo, builds Next.js, deploys standalone, manages systemd service
-4. **nginx** — reverse proxy config with security headers and static asset caching
-5. **certbot** — Let's Encrypt TLS cert (skips if already present)
+| Role | Purpose |
+|------|---------|
+| `common` | System deps, app user, directories, sysctl, logrotate |
+| `nodejs` | Node.js 20 via NodeSource |
+| `app` | Git clone, npm install, Next.js build, systemd service |
+| `nginx` | Vhost config, TLS proxy, static asset caching, catch-all 444 |
+| `certbot` | Let's Encrypt cert acquisition and auto-renewal |
 
-## Secrets
+## Server
 
-No secrets required for deployment. The app uses SQLite at `{{ app_dir }}/data/terriblesoft.db`.
-The DB is created automatically on first run by the Next.js API routes.
+- IP: `199.33.244.41` (ThoughtWave vm-starter, service 710)
+- App: `/opt/terriblesoft` 
+- Data: `/opt/terriblesoft/data/subscribers.db`
+- Service: `systemctl status terriblesoft`
+- Logs: `journalctl -u terriblesoft -f`
 
-## Rollback
+## Email Subscribers
 
-To rollback to a previous commit:
 ```bash
-ansible-playbook -i inventory/hosts.ini playbooks/redeploy.yml -e app_branch=<commit-sha>
+ssh ubuntu@199.33.244.41
+sudo sqlite3 /opt/terriblesoft/data/subscribers.db 'SELECT email, created_at FROM subscribers ORDER BY created_at;'
 ```

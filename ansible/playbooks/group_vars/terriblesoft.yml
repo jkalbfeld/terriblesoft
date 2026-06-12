@@ -1,0 +1,9 @@
+app_repo: https://github.com/jkalbfeld/terriblesoft.git
+app_branch: main
+app_dir: /opt/terriblesoft
+app_user: terriblesoft
+app_port: 3000
+node_version: "20"
+domain_name: terriblesoft.com
+data_dir: /opt/terriblesoft/data
+certbot_email: jonathan@thoughtwave.com
