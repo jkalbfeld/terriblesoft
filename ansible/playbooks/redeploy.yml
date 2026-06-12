@@ -1,8 +1,9 @@
 ---
-# Fast redeploy — skips system package installation
-# Use after code changes when infra is already provisioned
-- name: Redeploy TerribleSoft app
+# Fast redeploy: pull latest code and rebuild without reinstalling system deps
+- name: Redeploy TerribleSoft application
   hosts: terriblesoft
   become: true
+  vars:
+    force_build: true
   roles:
     - role: ../roles/app
