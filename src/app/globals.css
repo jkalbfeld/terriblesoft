@@ -1,0 +1,309 @@
+:root {
+  --ts-navy: #0d1b2a;
+  --ts-slate: #1b2d42;
+  --ts-blue: #1a3a5c;
+  --ts-accent: #e8780a;
+  --ts-light: #f4f6f9;
+  --ts-muted: #6c757d;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #ffffff;
+  color: #1a1a2e;
+}
+
+.ts-hero {
+  background: linear-gradient(135deg, var(--ts-navy) 0%, var(--ts-blue) 60%, #1e4976 100%);
+  color: white;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80') center/cover;
+  opacity: 0.08;
+}
+
+.ts-hero > * { position: relative; z-index: 1; }
+
+.ts-navbar {
+  background: var(--ts-navy) !important;
+  border-bottom: 2px solid var(--ts-accent);
+  padding: 0.75rem 0;
+}
+
+.ts-navbar .navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white !important;
+  letter-spacing: -0.5px;
+}
+
+.ts-navbar .nav-link {
+  color: rgba(255,255,255,0.85) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem !important;
+  transition: color 0.2s;
+}
+
+.ts-navbar .nav-link:hover { color: var(--ts-accent) !important; }
+
+.ts-btn-primary {
+  background: var(--ts-accent);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 0.65rem 1.75rem;
+  border-radius: 4px;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ts-btn-primary:hover { background: #c96b08; color: white; text-decoration: none; }
+
+.ts-btn-outline {
+  border: 2px solid white;
+  color: white;
+  font-weight: 600;
+  padding: 0.65rem 1.75rem;
+  border-radius: 4px;
+  background: transparent;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.ts-btn-outline:hover { background: white; color: var(--ts-navy); }
+
+.ts-section { padding: 5rem 0; }
+.ts-section-alt { background: var(--ts-light); }
+
+.ts-section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--ts-navy);
+  margin-bottom: 0.5rem;
+}
+
+.ts-section-sub {
+  color: var(--ts-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2.5rem;
+}
+
+.ts-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.75rem;
+  height: 100%;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+
+.ts-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+.ts-card-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--ts-blue), var(--ts-accent));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.ts-badge {
+  background: var(--ts-accent);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ts-testimonial {
+  background: var(--ts-navy);
+  color: white;
+  padding: 5rem 0;
+}
+
+.ts-quote {
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+
+.ts-quote-attr {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-style: normal;
+}
+
+.ts-compliance {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+  margin: 0.25rem;
+}
+
+.ts-compliance .check { color: #28a745; }
+
+.screenshot-frame {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  overflow: hidden;
+  background: #1e1e1e;
+}
+
+.screenshot-titlebar {
+  background: #2d2d2d;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.screenshot-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.screenshot-body {
+  background: #fff;
+  padding: 1rem;
+  font-size: 0.8rem;
+}
+
+.ts-product-hero {
+  background: linear-gradient(135deg, var(--ts-navy) 0%, var(--ts-slate) 100%);
+  color: white;
+  padding: 4rem 0;
+}
+
+.ts-fox-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ts-stat-box {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.ts-stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--ts-accent);
+  line-height: 1;
+}
+
+.ts-stat-label {
+  font-size: 0.85rem;
+  color: var(--ts-muted);
+  margin-top: 0.25rem;
+}
+
+.ts-footer {
+  background: var(--ts-navy);
+  color: rgba(255,255,255,0.7);
+  padding: 3rem 0 1.5rem;
+  font-size: 0.85rem;
+}
+
+.ts-footer a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+}
+
+.ts-footer a:hover { color: var(--ts-accent); }
+
+.ts-footer-heading {
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.ts-ai-artifact {
+  background: #fffbf0;
+  border: 1px solid #fde68a;
+  border-left: 4px solid #f59e0b;
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  font-size: 0.85rem;
+  color: #78350f;
+  margin: 1.5rem 0;
+  font-family: monospace;
+}
+
+.foxcolor { color: var(--ts-accent); font-weight: 700; }
+
+.compat-yes { color: #28a745; font-weight: 700; }
+.compat-partial { color: #fd7e14; font-weight: 700; }
+.compat-no { color: #dc3545; font-weight: 700; }
+
+.ascii-diagram {
+  font-family: monospace;
+  font-size: 0.8rem;
+  background: #1e1e1e;
+  color: #a8ff78;
+  padding: 1.5rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.4;
+}
+
+.progress-stuck .progress-bar {
+  width: 73% !important;
+  background: var(--ts-accent);
+  transition: none;
+}
+
+.ts-pagebg { min-height: 60vh; }
+
+.foxtrepan-section {
+  border-top: 4px solid #6c757d;
+  margin-top: 4rem;
+  padding-top: 3rem;
+}
+
+.pull-quote {
+  border-left: 4px solid var(--ts-accent);
+  padding: 1rem 1.5rem;
+  background: #fff8f0;
+  font-size: 1.1rem;
+  font-style: italic;
+  margin: 2rem 0;
+  border-radius: 0 6px 6px 0;
+}
