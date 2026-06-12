@@ -1,0 +1,8 @@
+---
+# Fast redeploy — skips system package installation
+# Use after code changes when infra is already provisioned
+- name: Redeploy TerribleSoft app
+  hosts: terriblesoft
+  become: true
+  roles:
+    - role: ../roles/app

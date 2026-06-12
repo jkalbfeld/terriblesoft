@@ -1,0 +1,11 @@
+---
+app_name: terriblesoft
+app_dir: /opt/terriblesoft
+app_repo: https://github.com/jkalbfeld/terriblesoft.git
+app_branch: main
+app_port: 3000
+app_user: terriblesoft
+node_version: "22"
+domain: terriblesoft.com
+www_domain: www.terriblesoft.com
+certbot_email: support@thoughtwave.net

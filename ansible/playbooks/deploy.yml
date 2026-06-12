@@ -1,0 +1,10 @@
+---
+- name: Deploy TerribleSoft
+  hosts: terriblesoft
+  become: true
+  roles:
+    - role: ../roles/common
+    - role: ../roles/nodejs
+    - role: ../roles/app
+    - role: ../roles/nginx
+    - role: ../roles/certbot
