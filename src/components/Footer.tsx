@@ -5,75 +5,58 @@ export default function Footer() {
     <footer className="ts-footer">
       <div className="container">
         <div className="row g-4 mb-4">
-          <div className="col-lg-3 col-md-6">
-            <div className="ts-footer-heading">TerribleSoft™</div>
-            <p style={{fontSize:'0.82rem',opacity:0.75,lineHeight:1.7}}>
-              Enterprise solutions since 1993. Headquartered in Schaumburg, Illinois.
-              We have not changed our mailing address since 1998.
-            </p>
-            <div style={{fontSize:'0.75rem',opacity:0.5,marginTop:'0.75rem'}}>
-              © 2024-2024 TerribleSoft™ All rights reserved.
+          <div className="col-lg-3">
+            <div className="ts-logo-mark mb-3">
+              <span className="ts-logo-squares" aria-hidden="true" style={{display:'inline-block',position:'relative',width:'18px',height:'18px'}}>
+                <span style={{display:'block',position:'absolute',background:'#e8730a',borderRadius:'2px',width:'12px',height:'12px',top:0,left:0}}></span>
+                <span style={{display:'block',position:'absolute',background:'rgba(255,255,255,0.4)',borderRadius:'2px',width:'12px',height:'12px',top:'5px',left:'5px'}}></span>
+              </span>
+              <span style={{fontWeight:800,color:'#fff',marginLeft:'8px'}}>TerribleSoft™</span>
             </div>
+            <p style={{fontSize:'0.85rem',lineHeight:1.6}}>Enterprise Solutions You Can Almost Use.<br/><span style={{opacity:0.5}}>Trusted by businesses that had no other options.</span></p>
+            <p style={{fontSize:'0.78rem',opacity:0.5}}>Schaumburg, IL 60173<br/>Est. 1993</p>
           </div>
-          <div className="col-lg-2 col-md-6">
-            <div className="ts-footer-heading">Products</div>
-            <ul className="list-unstyled" style={{lineHeight:2}}>
-              <li><Link href="/products/clusterfox">ClusterFox™</Link></li>
-              <li><Link href="/products/payrollpro">PayRollPro™</Link></li>
-              <li><Link href="/products/hrforce">HRForce™</Link></li>
-              <li><Link href="/products/medchartcloud">MedChartCloud™</Link></li>
-              <li><Link href="/products/supplychainsuite">SupplyChainSuite™</Link></li>
-              <li><Link href="/products/insights">Insights™</Link></li>
-              <li><Link href="/products/focusfox">FocusFox™</Link></li>
-              <li><Link href="#">Connect™</Link></li>
-            </ul>
+          <div className="col-6 col-lg-2">
+            <h6>Products</h6>
+            <Link href="/products/clusterfox">ClusterFox™</Link>
+            <Link href="/products/payrollpro">PayRollPro™</Link>
+            <Link href="/products/hrforce">HRForce™</Link>
+            <Link href="/products/medchartcloud">MedChartCloud™</Link>
+            <Link href="/products/supplychainsuite">SupplyChainSuite™</Link>
+            <Link href="/products/insights">TerribleSoft Insights™</Link>
+            <Link href="/products/focusfox">FocusFox™</Link>
           </div>
-          <div className="col-lg-2 col-md-6">
-            <div className="ts-footer-heading">Company</div>
-            <ul className="list-unstyled" style={{lineHeight:2}}>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/press">Press</Link></li>
-              <li><Link href="/careers">Careers</Link></li>
-              <li><Link href="/pricing">Pricing</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-              <li><a href="/consumer" style={{fontSize:'0.75rem',opacity:0.5}}>Consumer</a></li>
-            </ul>
+          <div className="col-6 col-lg-2">
+            <h6>Company</h6>
+            <Link href="/about">About Us</Link>
+            <Link href="/press">Press Releases</Link>
+            <Link href="/careers">Careers</Link>
+            <Link href="/contact">Contact Sales</Link>
+            <Link href="/pricing">Pricing</Link>
           </div>
-          <div className="col-lg-2 col-md-6">
-            <div className="ts-footer-heading">Support</div>
-            <ul className="list-unstyled" style={{lineHeight:2}}>
-              <li><Link href="/support">Help Center</Link></li>
-              <li><Link href="/support#faq">FAQ</Link></li>
-              <li><a href="#">Documentation</a></li>
-              <li><a href="#">FoxCare™ Portal</a></li>
-              <li><a href="#">Submit a Ticket</a></li>
-            </ul>
+          <div className="col-6 col-lg-2">
+            <h6>Support</h6>
+            <Link href="/support">Support Portal</Link>
+            <Link href="/support">Documentation</Link>
+            <Link href="/support">FoxCare™ Plans</Link>
+            <Link href="/support">Submit a Ticket</Link>
+            <Link href="/support">Community Forum</Link>
           </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="ts-footer-heading">Legal</div>
-            <ul className="list-unstyled" style={{lineHeight:2,fontSize:'0.8rem'}}>
-              <li><a href="#">Terms of Service (847 pages)</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">License Agreement</a></li>
-              <li><a href="#">FoxCare™ SLA</a></li>
-              <li><a href="#">Appendix F</a></li>
-            </ul>
-            <div style={{marginTop:'1rem',fontSize:'0.72rem',opacity:0.45,lineHeight:1.6,fontStyle:'italic'}}>
+          <div className="col-6 col-lg-3">
+            <h6>Legal</h6>
+            <Link href="#">Terms of Service (847 pages)</Link>
+            <Link href="#">Privacy Policy</Link>
+            <Link href="#">EULA</Link>
+            <Link href="#">Exit Clause (not available)</Link>
+            <Link href="#" style={{fontSize:'0.75rem',opacity:0.5}}>Consumer Division</Link>
+            <div className="ai-artifact" style={{marginTop:'1rem',fontSize:'0.72rem',color:'rgba(255,255,255,0.25)',fontStyle:'italic'}}>
               Note: Some statistics on this page may be approximate. Please verify before using in a board presentation. — AI Assistant
             </div>
           </div>
         </div>
-        <hr style={{borderColor:'rgba(255,255,255,0.1)'}}/>
-        <div className="row align-items-center">
-          <div className="col-md-8" style={{fontSize:'0.72rem',opacity:0.45,lineHeight:1.7}}>
-            † Gartner ranking methodology not disclosed. ‡ As referenced in an internal email we cannot share. § GDPR compliance applies to offices within 500 meters of the EU.
-            SOC 2 audit conducted by TerribleSoft Internal Audit Team. HIPAA compliance module sold separately ($18,000/year). Y2K ready as of December 31, 1999.
-            TerribleSoft™, ClusterFox™, FoxHA™, FoxNet™, FoxWatch™, FoxOver™, FoxMigrate™, FoxBand™, GazeVec™, PayRollPro™, HRForce™, MedChartCloud™,
-            SupplyChainSuite™, FocusFox™, FoxTrepan™ are trademarks of TerribleSoft Inc. All other marks are property of their respective owners, who we respect deeply.
-          </div>
-          <div className="col-md-4 text-md-end" style={{fontSize:'0.72rem',opacity:0.45}}>
-            Schaumburg, IL 60173 &nbsp;•&nbsp; 1-800-TERRIBLE
-          </div>
+        <div className="ts-footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <span>© 2024-2024 TerribleSoft™. All rights reserved. Contractually.</span>
+          <span style={{opacity:0.4,fontSize:'0.72rem'}}>ClusterFox™, FoxHA™, FoxOver™, FoxNet™, FoxWatch™, FoxMigrate™, FoxBand™, FoxTrepan™, FocusFox™, GazeVec™, PayRollPro™, HRForce™, MedChartCloud™, SupplyChainSuite™, TerribleSoft Insights™, TerribleSoft Connect™, FoxCare™, FoxScale™ are trademarks of TerribleSoft, Inc.</span>
         </div>
       </div>
     </footer>
