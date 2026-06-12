@@ -4,42 +4,42 @@ import { useEffect, useRef } from 'react'
 const secNotices = [
   {
     date: 'May 14, 2025',
-    type: 'SEC NOTICE — Form DELIST-1',
+    type: 'SEC NOTICE \u2014 Form DELIST-1',
     title: 'NASDAQ Notification of Non-Compliance: Minimum Bid Price Requirement',
     body: 'TerribleSoft, Inc. (Nasdaq: TRBL) has received written notification from The Nasdaq Stock Market LLC indicating that the Company is not in compliance with Nasdaq Listing Rule 5450(a)(1), as the closing bid price of the Company\'s common stock has been below $1.00 per share for 30 consecutive business days. The Company has 180 calendar days to regain compliance.',
-    severity: 'red',
+    cls: 'ir-notice-nasdaq',
   },
   {
     date: 'November 3, 2024',
-    type: 'SEC FILING — Form 8-K',
+    type: 'SEC FILING \u2014 Form 8-K',
     title: 'Completion of Fourth Reverse Stock Split',
     body: 'Effective November 1, 2024, TerribleSoft, Inc. completed a 1-for-20 reverse stock split of its common stock. This is the Company\'s fourth reverse stock split since its 2018 IPO. Post-split, the Company had approximately 4.2 million shares outstanding. The Board believes this action positions the Company for long-term shareholder value creation.',
-    severity: 'yellow',
+    cls: 'ir-notice',
   },
   {
     date: 'August 19, 2024',
-    type: 'SEC NOTICE — Trading Suspension',
-    title: 'SEC Order of Suspension of Trading — In the Matter of TerribleSoft, Inc.',
-    body: 'The Securities and Exchange Commission today announced the temporary suspension of trading in the securities of TerribleSoft, Inc. because of questions regarding the accuracy and adequacy of publicly available information concerning the Company\'s ClusterFox™ customer count and recurring revenue figures. The suspension will be in effect from 9:30 a.m. EDT on August 19, 2024, through 11:59 p.m. EDT on September 2, 2024.',
-    severity: 'red',
+    type: 'SEC NOTICE \u2014 Trading Suspension',
+    title: 'SEC Order of Suspension of Trading \u2014 In the Matter of TerribleSoft, Inc.',
+    body: 'The Securities and Exchange Commission today announced the temporary suspension of trading in the securities of TerribleSoft, Inc. because of questions regarding the accuracy and adequacy of publicly available information concerning the Company\'s ClusterFox\u2122 customer count and recurring revenue figures.',
+    cls: 'ir-notice ir-notice-sec',
   },
   {
     date: 'March 1, 2024',
-    type: 'SEC FILING — Form NT 10-K',
-    title: 'Notification of Late Filing — Annual Report',
+    type: 'SEC FILING \u2014 Form NT 10-K',
+    title: 'Notification of Late Filing \u2014 Annual Report',
     body: 'TerribleSoft, Inc. is unable to file its Annual Report on Form 10-K for the fiscal year ended December 31, 2023 within the prescribed time period without unreasonable effort or expense. The Company requires additional time to complete its assessment of internal controls over financial reporting following the departure of its Chief Financial Officer and two members of its accounting team.',
-    severity: 'yellow',
+    cls: 'ir-notice-restate',
   },
   {
-    date: 'January 12, 2024',
-    type: 'SEC FILING — Form 8-K',
-    title: 'Completion of Third Reverse Stock Split',
-    body: 'Effective January 10, 2024, TerribleSoft, Inc. completed a 1-for-10 reverse stock split of its common stock, its third since listing. Following the split, shares outstanding were approximately 84 million. The Company notes that post-split share price performance has historically not met expectations following prior splits.',
-    severity: 'yellow',
+    date: 'September 12, 2023',
+    type: 'SEC FILING \u2014 Form 8-K/A',
+    title: 'Amendment: Restatement of Financial Statements for Fiscal Years 2020\u20132022',
+    body: 'TerribleSoft, Inc. is restating its financial statements for fiscal years 2020, 2021, and 2022 due to errors in revenue recognition related to its ClusterFox\u2122 perpetual license contracts. The restatements reduce previously reported revenue by approximately $47.3 million in aggregate. The Company\'s Audit Committee has concluded its investigation.',
+    cls: 'ir-notice-restate',
   },
 ]
 
-function StockChart() {
+export default function InvestorsPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -47,216 +47,246 @@ function StockChart() {
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-
     const W = canvas.width
     const H = canvas.height
-    ctx.clearRect(0, 0, W, H)
-
-    // Generate a thoroughly terrible stock price history
-    // IPO: $24. Current: ~$0.42 (post 4 reverse splits, so really $0.000000something adjusted)
-    const rawPoints: number[] = []
-    let price = 24
-    const phases = [
-      { steps: 20, drift: 0.8, vol: 0.5 },   // post-IPO pop
-      { steps: 30, drift: -0.6, vol: 0.8 },  // first collapse
-      { steps: 10, drift: 1.2, vol: 0.4 },   // fake recovery (reverse split 1)
-      { steps: 25, drift: -0.7, vol: 0.6 },  // second collapse
-      { steps: 8,  drift: 1.5, vol: 0.3 },   // fake recovery (reverse split 2)
-      { steps: 30, drift: -0.8, vol: 0.9 },  // SEC suspension crash
-      { steps: 5,  drift: 1.8, vol: 0.2 },   // fake recovery (reverse split 3)
-      { steps: 20, drift: -0.9, vol: 1.0 },  // current death spiral
-      { steps: 5,  drift: 1.6, vol: 0.2 },   // reverse split 4 blip
-      { steps: 15, drift: -0.95, vol: 0.8 }, // noncompliance territory
-    ]
-
-    for (const phase of phases) {
-      for (let i = 0; i < phase.steps; i++) {
-        price = price * (1 + (phase.drift / phase.steps) + (Math.random() - 0.5) * phase.vol * 0.1)
-        price = Math.max(price, 0.08)
-        rawPoints.push(price)
-      }
-    }
-
-    const maxP = Math.max(...rawPoints)
-    const minP = Math.min(...rawPoints)
-    const pad = { top: 20, right: 20, bottom: 30, left: 50 }
+    const pad = { top: 30, right: 30, bottom: 50, left: 60 }
     const chartW = W - pad.left - pad.right
     const chartH = H - pad.top - pad.bottom
 
-    const toX = (i: number) => pad.left + (i / (rawPoints.length - 1)) * chartW
-    const toY = (p: number) => pad.top + chartH - ((p - minP) / (maxP - minP)) * chartH
+    // Stock price data: IPO at $24, cliff to $0.42
+    const points = [
+      { label: 'IPO\n2018', price: 24.00 },
+      { label: 'Q3 2018', price: 19.40 },
+      { label: 'Q1 2019', price: 14.20 },
+      { label: '1:10 Split\nJun 2019', price: 12.10 },
+      { label: 'Q3 2019', price: 9.80 },
+      { label: 'Q1 2020', price: 7.30 },
+      { label: '1:5 Split\nAug 2020', price: 6.10 },
+      { label: 'Q3 2020', price: 4.90 },
+      { label: 'Q1 2021', price: 4.10 },
+      { label: 'Q3 2021', price: 3.50 },
+      { label: 'Restate\n2022', price: 2.20 },
+      { label: '1:10 Split\nMar 2023', price: 1.90 },
+      { label: 'SEC Susp\nAug 2024', price: 1.30 },
+      { label: '1:20 Split\nNov 2024', price: 0.88 },
+      { label: 'NASDAQ\nWarn 2025', price: 0.61 },
+      { label: 'Today', price: 0.42 },
+    ]
+
+    const maxPrice = 26
+    const minPrice = 0
+
+    ctx.clearRect(0, 0, W, H)
 
     // Grid lines
-    ctx.strokeStyle = '#1f2937'
+    ctx.strokeStyle = '#e2e8f0'
     ctx.lineWidth = 1
-    for (let i = 0; i <= 4; i++) {
-      const y = pad.top + (chartH / 4) * i
+    for (let i = 0; i <= 5; i++) {
+      const y = pad.top + (chartH * i) / 5
       ctx.beginPath()
       ctx.moveTo(pad.left, y)
-      ctx.lineTo(W - pad.right, y)
+      ctx.lineTo(pad.left + chartW, y)
       ctx.stroke()
+      const val = maxPrice - (maxPrice * i) / 5
+      ctx.fillStyle = '#94a3b8'
+      ctx.font = '11px system-ui'
+      ctx.textAlign = 'right'
+      ctx.fillText('$' + val.toFixed(2), pad.left - 6, y + 4)
     }
 
-    // Year labels
-    const years = ['2018','2019','2020','2021','2022','2023','2024','2025']
-    ctx.fillStyle = '#6b7280'
-    ctx.font = '10px monospace'
-    ctx.textAlign = 'center'
-    years.forEach((yr, i) => {
-      const x = pad.left + (i / (years.length - 1)) * chartW
-      ctx.fillText(yr, x, H - 5)
-    })
+    // Gradient fill
+    const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH)
+    grad.addColorStop(0, 'rgba(220,53,69,0.3)')
+    grad.addColorStop(1, 'rgba(220,53,69,0.02)')
 
-    // Price labels
-    ctx.textAlign = 'right'
-    for (let i = 0; i <= 4; i++) {
-      const p = minP + ((maxP - minP) / 4) * (4 - i)
-      const y = pad.top + (chartH / 4) * i
-      ctx.fillText('$' + p.toFixed(2), pad.left - 5, y + 4)
-    }
-
-    // Reverse split markers
-    const splitIndices = [50, 93, 143, 158]
-    splitIndices.forEach(idx => {
-      const x = toX(idx)
-      ctx.strokeStyle = '#f59e0b'
-      ctx.lineWidth = 1
-      ctx.setLineDash([3, 3])
-      ctx.beginPath()
-      ctx.moveTo(x, pad.top)
-      ctx.lineTo(x, H - pad.bottom)
-      ctx.stroke()
-      ctx.setLineDash([])
-      ctx.fillStyle = '#f59e0b'
-      ctx.font = '9px monospace'
-      ctx.textAlign = 'center'
-      ctx.fillText('R/S', x, pad.top + 10)
-    })
-
-    // SEC suspension marker
-    const secIdx = 118
-    const secX = toX(secIdx)
-    ctx.strokeStyle = '#ef4444'
-    ctx.lineWidth = 1.5
-    ctx.setLineDash([4, 2])
     ctx.beginPath()
-    ctx.moveTo(secX, pad.top)
-    ctx.lineTo(secX, H - pad.bottom)
-    ctx.stroke()
-    ctx.setLineDash([])
-    ctx.fillStyle = '#ef4444'
-    ctx.font = '9px monospace'
-    ctx.textAlign = 'center'
-    ctx.fillText('SEC', secX, pad.top + 22)
-
-    // Fill under line
-    ctx.beginPath()
-    ctx.moveTo(toX(0), toY(rawPoints[0]))
-    rawPoints.forEach((p, i) => ctx.lineTo(toX(i), toY(p)))
-    ctx.lineTo(toX(rawPoints.length - 1), H - pad.bottom)
-    ctx.lineTo(pad.left, H - pad.bottom)
+    points.forEach((p, i) => {
+      const x = pad.left + (i / (points.length - 1)) * chartW
+      const y = pad.top + ((maxPrice - p.price) / (maxPrice - minPrice)) * chartH
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y)
+    })
+    ctx.lineTo(pad.left + chartW, pad.top + chartH)
+    ctx.lineTo(pad.left, pad.top + chartH)
     ctx.closePath()
-    const grad = ctx.createLinearGradient(0, pad.top, 0, H)
-    grad.addColorStop(0, 'rgba(239,68,68,0.2)')
-    grad.addColorStop(1, 'rgba(239,68,68,0.0)')
     ctx.fillStyle = grad
     ctx.fill()
 
-    // Main line
+    // Line
     ctx.beginPath()
-    ctx.moveTo(toX(0), toY(rawPoints[0]))
-    rawPoints.forEach((p, i) => ctx.lineTo(toX(i), toY(p)))
-    ctx.strokeStyle = '#ef4444'
-    ctx.lineWidth = 2
+    ctx.strokeStyle = '#dc3545'
+    ctx.lineWidth = 2.5
+    points.forEach((p, i) => {
+      const x = pad.left + (i / (points.length - 1)) * chartW
+      const y = pad.top + ((maxPrice - p.price) / (maxPrice - minPrice)) * chartH
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y)
+    })
     ctx.stroke()
 
-    // Current price dot
-    const lastX = toX(rawPoints.length - 1)
-    const lastY = toY(rawPoints[rawPoints.length - 1])
-    ctx.beginPath()
-    ctx.arc(lastX, lastY, 5, 0, Math.PI * 2)
-    ctx.fillStyle = '#ef4444'
-    ctx.fill()
+    // Reverse split markers
+    const splitIndices = [3, 6, 11, 13]
+    splitIndices.forEach(idx => {
+      const x = pad.left + (idx / (points.length - 1)) * chartW
+      ctx.strokeStyle = '#f0a500'
+      ctx.lineWidth = 1.5
+      ctx.setLineDash([4, 3])
+      ctx.beginPath()
+      ctx.moveTo(x, pad.top)
+      ctx.lineTo(x, pad.top + chartH)
+      ctx.stroke()
+      ctx.setLineDash([])
+      ctx.fillStyle = '#f0a500'
+      ctx.font = 'bold 9px system-ui'
+      ctx.textAlign = 'center'
+      ctx.fillText('R/S', x, pad.top + 12)
+    })
 
+    // SEC suspension marker
+    const secIdx = 12
+    const secX = pad.left + (secIdx / (points.length - 1)) * chartW
+    ctx.strokeStyle = '#dc3545'
+    ctx.lineWidth = 2
+    ctx.setLineDash([2, 2])
+    ctx.beginPath()
+    ctx.moveTo(secX, pad.top)
+    ctx.lineTo(secX, pad.top + chartH)
+    ctx.stroke()
+    ctx.setLineDash([])
+    ctx.fillStyle = '#dc3545'
+    ctx.font = 'bold 9px system-ui'
+    ctx.textAlign = 'center'
+    ctx.fillText('SEC', secX, pad.top + 22)
+
+    // X-axis labels (every 3rd point)
+    ctx.fillStyle = '#64748b'
+    ctx.font = '10px system-ui'
+    ;[0, 4, 8, 12, 15].forEach(idx => {
+      const x = pad.left + (idx / (points.length - 1)) * chartW
+      ctx.textAlign = 'center'
+      ctx.fillText(points[idx].label.split('\n')[0], x, H - 10)
+    })
   }, [])
 
-  return <canvas ref={canvasRef} width={720} height={280} className="w-full rounded" />
-}
-
-export default function InvestorsPage() {
   return (
-    <main className="min-h-screen bg-gray-950 text-white">
-      <div className="max-w-4xl mx-auto px-6 py-20">
-        <div className="flex items-start justify-between mb-2">
-          <div>
-            <h1 className="text-5xl font-black mb-2">Investor Relations</h1>
-            <p className="text-gray-400">TerribleSoft, Inc. · Nasdaq: <span className="font-mono text-orange-400">TRBL</span></p>
+    <>
+      {/* HERO */}
+      <section className="ir-hero">
+        <div className="container">
+          <div className="ts-section-label">Investor Relations</div>
+          <h1 style={{fontWeight:800,fontSize:'2.8rem',color:'#fff',letterSpacing:'-1px',marginBottom:'0.75rem'}}>TerribleSoft, Inc. <span style={{color:'#f0a500'}}>TRBL</span></h1>
+          <p style={{color:'rgba(255,255,255,0.65)',fontSize:'1rem',maxWidth:'600px',marginBottom:'1.5rem'}}>Nasdaq-listed enterprise software company. Current price: <strong style={{color:'#dc3545'}}>$0.42</strong> &nbsp;<span style={{color:'#dc3545',fontSize:'0.85rem'}}>\u25bc 98.3% since IPO</span></p>
+          <div className="d-flex flex-wrap gap-3">
+            <span style={{background:'rgba(220,53,69,0.2)',border:'1px solid rgba(220,53,69,0.5)',color:'#ff6b7a',fontSize:'0.75rem',fontWeight:700,padding:'0.3rem 0.9rem',borderRadius:'20px',letterSpacing:'1px'}}>\u26a0 NASDAQ COMPLIANCE NOTICE ACTIVE</span>
+            <span style={{background:'rgba(240,165,0,0.15)',border:'1px solid rgba(240,165,0,0.4)',color:'#f0a500',fontSize:'0.75rem',fontWeight:700,padding:'0.3rem 0.9rem',borderRadius:'20px',letterSpacing:'1px'}}>4 REVERSE SPLITS SINCE 2018</span>
           </div>
-          <div className="text-right">
-            <div className="text-4xl font-black font-mono text-red-400">$0.42</div>
-            <div className="text-red-400 text-sm">▼ -0.07 (-14.3%) today</div>
-            <div className="text-gray-600 text-xs">Adjusted for 4 reverse splits</div>
-          </div>
         </div>
+      </section>
 
-        <div className="bg-red-950/20 border border-red-800/40 rounded-xl p-3 mb-6">
-          <p className="text-red-400 text-xs font-mono">⚠ NASDAQ MINIMUM BID PRICE NON-COMPLIANCE — Cure period expires November 10, 2025</p>
-        </div>
-
-        {/* Stock Chart */}
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold">TRBL — 7 Year Price History</h2>
-            <div className="flex gap-4 text-xs text-gray-500">
-              <span className="text-yellow-400">│ R/S = Reverse Split</span>
-              <span className="text-red-400">│ SEC = Trading Suspension</span>
-            </div>
-          </div>
-          <StockChart />
-          <p className="text-gray-600 text-xs mt-3">IPO price: $24.00 (2018). All prices adjusted for 4 reverse stock splits (1:10, 1:10, 1:10, 1:20). Past performance is not indicative of future results. This chart may cause distress.</p>
-        </div>
-
-        {/* Key Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {[
-            { label: 'Market Cap', value: '$1.76M' },
-            { label: 'IPO Market Cap', value: '$288M' },
-            { label: 'Value Destroyed', value: '$286M' },
-            { label: 'Reverse Splits', value: '4' },
-          ].map(s => (
-            <div key={s.label} className="bg-gray-900 border border-gray-800 rounded-xl p-4 text-center">
-              <div className="text-2xl font-black font-mono text-red-400">{s.value}</div>
-              <div className="text-gray-500 text-xs mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* SEC Notices */}
-        <h2 className="text-2xl font-bold mb-6">Regulatory Filings &amp; Notices</h2>
-        <div className="space-y-4 mb-12">
-          {secNotices.map(n => (
-            <div key={n.title} className={`bg-gray-900 border rounded-xl p-6 ${
-              n.severity === 'red' ? 'border-red-900/60' : 'border-yellow-900/40'
-            }`}>
-              <div className="flex items-center gap-3 mb-2">
-                <span className={`text-xs font-mono px-2 py-1 rounded ${
-                  n.severity === 'red' ? 'bg-red-950 text-red-400' : 'bg-yellow-950 text-yellow-500'
-                }`}>{n.type}</span>
-                <span className="text-gray-500 text-sm">{n.date}</span>
+      {/* KEY STATS */}
+      <div style={{background:'#f8fafc',borderBottom:'1px solid #e2e8f0',padding:'2rem 0'}}>
+        <div className="container">
+          <div className="row g-3 text-center">
+            {[
+              { label: 'IPO Price (2018)', value: '$24.00', sub: 'Never seen again' },
+              { label: 'Current Price', value: '$0.42', sub: '\u25bc $23.58 (-98.3%)', red: true },
+              { label: 'Market Cap', value: '$1.76M', sub: 'Down from $288M at IPO', red: true },
+              { label: 'Reverse Splits', value: '4', sub: '1:10, 1:5, 1:10, 1:20' },
+              { label: 'Value Destroyed', value: '$286M', sub: 'Approximate', red: true },
+              { label: 'Auditors (since 2020)', value: '3', sub: 'All resigned' },
+            ].map(s => (
+              <div key={s.label} className="col-6 col-md-4 col-lg-2">
+                <div style={{padding:'1rem',borderRight:'1px solid #e2e8f0'}}>
+                  <div style={{fontSize:'1.6rem',fontWeight:800,color:s.red?'#dc3545':'#0d2b45',lineHeight:1}}>{s.value}</div>
+                  <div style={{fontSize:'0.75rem',fontWeight:700,color:'#334155',marginTop:'0.25rem'}}>{s.label}</div>
+                  <div style={{fontSize:'0.7rem',color:s.red?'#dc3545':'#94a3b8',marginTop:'0.15rem'}}>{s.sub}</div>
+                </div>
               </div>
-              <h3 className="font-bold mb-2">{n.title}</h3>
-              <p className="text-gray-400 text-sm">{n.body}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
-          <h2 className="text-xl font-bold mb-2">Investor Contact</h2>
-          <p className="text-gray-400 text-sm mb-1">ir@terriblesoft.com</p>
-          <p className="text-gray-400 text-sm mb-4">+1 (847) 582-3223</p>
-          <p className="text-gray-600 text-xs">The information contained herein may include forward-looking statements. All forward-looking statements are forward-looking. Past forward-looking statements have not proven to be accurate. Future forward-looking statements are provided without warranty, express or implied.</p>
+            ))}
+          </div>
         </div>
       </div>
-    </main>
+
+      {/* STOCK CHART */}
+      <section style={{padding:'4rem 0',background:'#fff'}}>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8">
+              <h4 style={{fontWeight:800,color:'#0d2b45',marginBottom:'0.25rem'}}>TRBL — 7-Year Price History</h4>
+              <p style={{fontSize:'0.8rem',color:'#94a3b8',marginBottom:'1.5rem'}}>Adjusted for reverse stock splits. R/S = Reverse Split. SEC = Trading Suspension. Past performance is not indicative of future results. This chart may cause distress.</p>
+              <canvas ref={canvasRef} width={700} height={320} style={{width:'100%',height:'auto',border:'1px solid #e2e8f0',borderRadius:'8px',background:'#fafafa'}} />
+              <p style={{fontSize:'0.7rem',color:'#cbd5e1',marginTop:'0.5rem'}}>Data presented for informational purposes. TerribleSoft does not guarantee the accuracy of this chart, including the direction of the line.</p>
+            </div>
+            <div className="col-lg-4 mt-4 mt-lg-0">
+              <div style={{background:'#fff5f5',border:'1px solid #fecaca',borderRadius:'8px',padding:'1.25rem',marginBottom:'1rem'}}>
+                <h6 style={{color:'#dc3545',fontWeight:700,marginBottom:'0.5rem'}}>\u26a0 Active Compliance Notice</h6>
+                <p style={{fontSize:'0.82rem',color:'#7f1d1d',margin:0}}>TRBL has been below the $1.00 minimum bid price for 30+ consecutive days. The Company has until November 2025 to regain compliance or face delisting.</p>
+              </div>
+              <div style={{background:'#fffbeb',border:'1px solid #fde68a',borderRadius:'8px',padding:'1.25rem'}}>
+                <h6 style={{color:'#92400e',fontWeight:700,marginBottom:'0.75rem'}}>Reverse Split History</h6>
+                {[
+                  { date: 'Jun 2019', ratio: '1-for-10', pre: '$2.40', post: '$24.00' },
+                  { date: 'Aug 2020', ratio: '1-for-5', pre: '$1.20', post: '$6.00' },
+                  { date: 'Mar 2023', ratio: '1-for-10', pre: '$0.19', post: '$1.90' },
+                  { date: 'Nov 2024', ratio: '1-for-20', pre: '$0.044', post: '$0.88' },
+                ].map(r => (
+                  <div key={r.date} style={{display:'flex',justifyContent:'space-between',fontSize:'0.78rem',marginBottom:'0.4rem',paddingBottom:'0.4rem',borderBottom:'1px solid #fde68a'}}>
+                    <span style={{color:'#78350f',fontWeight:600}}>{r.date} ({r.ratio})</span>
+                    <span style={{color:'#92400e'}}>{r.pre} \u2192 {r.post}</span>
+                  </div>
+                ))}
+                <p style={{fontSize:'0.7rem',color:'#a16207',margin:0,marginTop:'0.5rem'}}>Each split temporarily restored compliance. Temporarily.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEC NOTICES */}
+      <section style={{padding:'4rem 0',background:'#f8fafc'}}>
+        <div className="container">
+          <div className="mb-4">
+            <h4 style={{fontWeight:800,color:'#0d2b45'}}>Regulatory Filings &amp; Notices</h4>
+            <p style={{color:'#64748b',fontSize:'0.9rem'}}>Material SEC filings, compliance notices, and other regulatory communications. Listed in reverse chronological order. There are many.</p>
+          </div>
+          {secNotices.map((n, i) => (
+            <div key={i} className={`ir-notice ${n.cls}`} style={{marginBottom:'1rem'}}>
+              <div style={{display:'flex',justifyContent:'space-between',flexWrap:'wrap',gap:'0.5rem',marginBottom:'0.4rem'}}>
+                <span style={{fontSize:'0.72rem',fontWeight:700,color:'#64748b',letterSpacing:'1px',textTransform:'uppercase'}}>{n.type}</span>
+                <span style={{fontSize:'0.72rem',color:'#94a3b8'}}>{n.date}</span>
+              </div>
+              <h6 style={{fontWeight:700,color:'#1e293b',marginBottom:'0.4rem'}}>{n.title}</h6>
+              <p style={{fontSize:'0.85rem',color:'#475569',margin:0}}>{n.body}</p>
+            </div>
+          ))}
+          <p style={{fontSize:'0.75rem',color:'#94a3b8',marginTop:'1.5rem'}}>For a complete list of filings, visit <a href="https://www.sec.gov" target="_blank" rel="noopener noreferrer" style={{color:'#4a9eda'}}>SEC EDGAR</a>. Search for &ldquo;TerribleSoft&rdquo; and set aside an afternoon.</p>
+        </div>
+      </section>
+
+      {/* SHAREHOLDER LETTER */}
+      <section style={{padding:'4rem 0',background:'#fff'}}>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div style={{border:'1px solid #e2e8f0',borderRadius:'8px',padding:'2.5rem',background:'#fff'}}>
+                <h5 style={{fontWeight:800,color:'#0d2b45',marginBottom:'0.25rem'}}>Letter to Shareholders</h5>
+                <p style={{fontSize:'0.78rem',color:'#94a3b8',marginBottom:'1.5rem'}}>Annual Letter \u2014 Fiscal Year 2024 (filed March 2025, amended twice)</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7}}>Dear Fellow Shareholders,</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7}}>Fiscal year 2024 was a year of transformation, resilience, and strategic repositioning. It was also a year in which our stock declined 52%, we completed our fourth reverse stock split, and we received a trading suspension from the SEC. We view these as temporary setbacks on our path to long-term value creation.</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7}}>ClusterFox\u2122 11.0 shipped in Q4 with three new modules, none of which are included in any existing license tier. Our pipeline remains strong, defined as &ldquo;companies that have replied to at least one email.&rdquo;</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7}}>We remain committed to our shareholders. The Board has authorized a share repurchase program of up to $500,000, which at current prices represents approximately 1.19 million shares, or roughly 28% of our outstanding float. We have not yet begun repurchases due to the ongoing trading suspension.</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7,marginBottom:'0.25rem'}}>Onward,</p>
+                <p style={{color:'#334155',fontSize:'0.92rem',lineHeight:1.7,fontWeight:700}}>R. Thornton Whitmore IV<br/><span style={{fontWeight:400,fontSize:'0.85rem',color:'#64748b'}}>Interim CEO (acting), TerribleSoft, Inc.<br/>Previously Interim CFO (acting). Previously General Counsel. Previously a customer.</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* DISCLAIMER */}
+      <div style={{background:'#f8fafc',borderTop:'1px solid #e2e8f0',padding:'2rem 0'}}>
+        <div className="container">
+          <p style={{fontSize:'0.72rem',color:'#94a3b8',textAlign:'center',maxWidth:'800px',margin:'0 auto'}}>This page contains forward-looking statements within the meaning of Section 27A of the Securities Act and Section 21E of the Exchange Act. These statements involve known and unknown risks. Past performance is not indicative of future results. The stock chart is real in the sense that it accurately depicts a company whose stock has gone down. TerribleSoft\u2122 is not responsible for investment decisions made after viewing this page. Please consult a financial advisor. If your financial advisor is also a TerribleSoft customer, please consult a different financial advisor.</p>
+        </div>
+      </div>
+    </>
   )
 }
