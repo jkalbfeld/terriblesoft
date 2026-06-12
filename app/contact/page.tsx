@@ -1,134 +1,136 @@
-'use client'
-import { useState } from 'react'
+'use client';
+import { useState } from 'react';
 
 export default function ContactPage() {
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitted(true);
   }
 
   return (
-    <div>
-      <section className="product-hero">
+    <>
+      <section className="ts-product-hero">
         <div className="container">
-          <h1>Contact TerribleSoft™</h1>
-          <p style={{fontSize:'1.1rem',color:'rgba(255,255,255,0.7)',maxWidth:'520px',marginTop:'1rem'}}>
-            We are here to help. Our team will respond within the timeframes outlined in your FoxCare™ support contract, or within 3–5 business decades if no contract is active.
-          </p>
+          <div className="ts-section-label">Get In Touch</div>
+          <h1 style={{fontWeight:800,fontSize:'2.8rem',color:'#fff',letterSpacing:'-1px',marginBottom:'1rem'}}>Contact Sales</h1>
+          <p style={{color:'rgba(255,255,255,0.65)',fontSize:'1.05rem',maxWidth:'540px'}}>A TerribleSoft account executive will respond within 3–5 business weeks. For urgent matters, please call our main line and experience our hold queue firsthand.</p>
         </div>
       </section>
 
-      <section className="ts-section">
+      <section className="section-pad">
         <div className="container">
           <div className="row g-5">
             <div className="col-lg-7">
-              {!submitted ? (
-                <>
-                  <h2 style={{fontWeight:800,marginBottom:'1.5rem'}}>Send Us a Message</h2>
-                  <form onSubmit={handleSubmit}>
-                    <div className="row g-3">
-                      <div className="col-md-6">
-                        <label className="form-label fw-semibold">Full Name *</label>
-                        <input type="text" className="form-control" required placeholder="Your name" />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label fw-semibold">Company *</label>
-                        <input type="text" className="form-control" required placeholder="Your organization" />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label fw-semibold">Email Address *</label>
-                        <input type="email" className="form-control" required placeholder="you@company.com" />
-                      </div>
-                      <div className="col-md-6">
-                        <label className="form-label fw-semibold">Phone Number</label>
-                        <input type="tel" className="form-control" placeholder="+1 (555) 000-0000" />
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label fw-semibold">Product Interest</label>
-                        <select className="form-select">
-                          <option>ClusterFox™</option>
-                          <option>ClusterFox™ (I have Wellfleet routers)</option>
-                          <option>PayRollPro™</option>
-                          <option>HRForce™</option>
-                          <option>MedChartCloud™</option>
-                          <option>SupplyChainSuite™</option>
-                          <option>TerribleSoft Insights™</option>
-                          <option>FocusFox™</option>
-                          <option>TerribleSoft Connect™ (required)</option>
-                          <option>Full Enterprise Suite</option>
-                        </select>
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label fw-semibold">How did you hear about us?</label>
-                        <select className="form-select">
-                          <option>Our sales team called me 47 times</option>
-                          <option>A nightmare</option>
-                          <option>My competitor warned me</option>
-                          <option>Gartner† report</option>
-                          <option>I found a BNC terminator in a box and it led me here</option>
-                          <option>McKinsey recommendation</option>
-                          <option>Contractual obligation from previous employer</option>
-                          <option>I don’t remember and I’m not sure I want to</option>
-                        </select>
-                      </div>
-                      <div className="col-12">
-                        <label className="form-label fw-semibold">Message</label>
-                        <textarea className="form-control" rows={4} placeholder="Describe your requirements, current environment, or the specific nature of your situation"></textarea>
-                      </div>
-                      <div className="col-12">
-                        <button type="submit" className="btn-ts-primary" style={{padding:'14px 32px',fontSize:'1rem'}}>Submit Request</button>
-                        <p style={{fontSize:'0.75rem',color:'#aaa',marginTop:'0.75rem'}}>
-                          By submitting this form you agree to be contacted by TerribleSoft sales representatives at any time, on any channel, indefinitely. You also agree that your submission constitutes expression of interest and may be referenced in future licensing discussions.
-                        </p>
-                      </div>
-                    </div>
-                  </form>
-                </>
-              ) : (
-                <div style={{textAlign:'center',padding:'3rem 2rem',background:'#f4f6f9',borderRadius:'16px'}}>
-                  <div style={{fontSize:'3rem',marginBottom:'1rem'}}>✅</div>
-                  <h3 style={{fontWeight:800,color:'var(--ts-navy)'}}>Thank you for contacting TerribleSoft.</h3>
-                  <p style={{color:'#555',fontSize:'1rem',margin:'1rem 0',lineHeight:'1.7'}}>
-                    Your inquiry has been received and assigned ticket number <strong>#847291-B</strong>.
-                  </p>
-                  <p style={{color:'#888',fontSize:'0.9rem'}}>
-                    Estimated response time: <strong>3–5 business decades.</strong>
-                  </p>
-                  <p style={{color:'#aaa',fontSize:'0.8rem',marginTop:'1rem'}}>
-                    If your inquiry is urgent, please call our support line and follow the prompts.
-                    If you have a FoxCare™ Platinum contract, a representative will contact you
-                    within the timeframe specified in Schedule 4 of your agreement.
-                  </p>
+              {submitted ? (
+                <div style={{background:'#f0fdf4',border:'1px solid #86efac',borderRadius:'10px',padding:'3rem',textAlign:'center'}}>
+                  <div style={{fontSize:'3rem',marginBottom:'1rem'}}>✓</div>
+                  <h3 style={{fontWeight:800,color:'#15803d',marginBottom:'0.5rem'}}>Submission Received</h3>
+                  <p style={{color:'#166534',marginBottom:'0.5rem'}}>Ticket <strong>#847291-B</strong> has been assigned to your inquiry.</p>
+                  <p style={{color:'#166534',fontSize:'0.9rem'}}>Expected response time: <strong>3–5 business decades.</strong><br/>Your account executive will be in touch. We cannot tell you which account executive.</p>
                 </div>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  <div className="row g-3">
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>First Name *</label>
+                      <input type="text" className="form-control" required />
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Last Name *</label>
+                      <input type="text" className="form-control" required />
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Company *</label>
+                      <input type="text" className="form-control" required />
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Title</label>
+                      <input type="text" className="form-control" />
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Business Email *</label>
+                      <input type="email" className="form-control" required />
+                    </div>
+                    <div className="col-md-6">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Phone</label>
+                      <input type="tel" className="form-control" />
+                    </div>
+                    <div className="col-12">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Product Interest *</label>
+                      <select className="form-select" required>
+                        <option value="">Select a product...</option>
+                        <option>ClusterFox™</option>
+                        <option>ClusterFox™ (I have Wellfleet routers)</option>
+                        <option>PayRollPro™</option>
+                        <option>HRForce™</option>
+                        <option>MedChartCloud™</option>
+                        <option>SupplyChainSuite™ (all 47 modules)</option>
+                        <option>TerribleSoft Insights™</option>
+                        <option>FocusFox™</option>
+                        <option>TerribleSoft Connect™ (required if selecting more than one above)</option>
+                        <option>Full Enterprise Suite (bring legal)</option>
+                      </select>
+                    </div>
+                    <div className="col-12">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>How did you hear about us?</label>
+                      <select className="form-select">
+                        <option value="">Select...</option>
+                        <option>Our sales team called me 47 times</option>
+                        <option>A nightmare</option>
+                        <option>My competitor warned me</option>
+                        <option>Gartner† report</option>
+                        <option>I found a BNC terminator in a box and it led me here</option>
+                        <option>Contractual obligation</option>
+                        <option>McKinsey recommended it</option>
+                        <option>I am already a customer and cannot leave</option>
+                      </select>
+                    </div>
+                    <div className="col-12">
+                      <label className="form-label" style={{fontWeight:600,fontSize:'0.85rem'}}>Additional Notes</label>
+                      <textarea className="form-control" rows={4} placeholder="Describe your infrastructure environment, current pain points, and whether you are currently running Solaris."></textarea>
+                    </div>
+                    <div className="col-12">
+                      <button type="submit" className="ts-cta-primary" style={{fontSize:'1rem',padding:'0.8rem 2.5rem'}}>Submit Inquiry</button>
+                      <p style={{fontSize:'0.72rem',color:'#999',marginTop:'0.75rem'}}>By submitting this form, you agree to our 847-page Terms of Service, consent to be contacted by our sales team indefinitely, and acknowledge that implementation fees are non-refundable.</p>
+                    </div>
+                  </div>
+                </form>
               )}
             </div>
 
             <div className="col-lg-5">
-              <div className="ts-card" style={{marginBottom:'1.5rem'}}>
-                <h5 style={{fontWeight:800}}>Phone Support</h5>
-                <p style={{fontSize:'1.2rem',fontWeight:700,color:'var(--ts-navy)',margin:'0.5rem 0'}}>+1 (847) 588-0870</p>
-                <p style={{fontSize:'0.85rem',color:'#888',marginBottom:0}}>Available Mon–Fri, 9am–5pm CT.<br/>Hold times vary. Pager alerts not included.</p>
+              <div className="ts-card" style={{background:'#f8f9fa',marginBottom:'1.5rem'}}>
+                <h5 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'1rem'}}>Contact Information</h5>
+                <div style={{fontSize:'0.88rem',color:'#4a5568',lineHeight:2.0}}>
+                  <div><strong>Headquarters</strong><br/>TerribleSoft Inc.<br/>One Enterprise Plaza, Suite 847<br/>Schaumburg, Illinois 60173</div>
+                  <hr/>
+                  <div><strong>Main Line</strong><br/>
+                    <a href="tel:+18475823223" style={{color:'#0d1b2a',fontWeight:700,fontFamily:'monospace',fontSize:'1rem'}}>+1 (847) 582-3223</a><br/>
+                    <span style={{fontSize:'0.75rem',color:'#999'}}>Mon–Fri, 9AM–5PM CST. Hold times vary. Bring a snack.</span>
+                  </div>
+                  <hr/>
+                  <div><strong>Sales</strong><br/>sales@terriblesoft.com<br/><span style={{fontSize:'0.75rem',color:'#999'}}>Response: 3–5 business weeks</span></div>
+                  <hr/>
+                  <div><strong>Support</strong><br/>support@terriblesoft.com<br/><span style={{fontSize:'0.75rem',color:'#999'}}>FoxCare™ contract required for response</span></div>
+                </div>
               </div>
-              <div className="ts-card" style={{marginBottom:'1.5rem'}}>
-                <h5 style={{fontWeight:800}}>Sales Inquiries</h5>
-                <p style={{fontSize:'0.88rem',color:'#555'}}>Our sales team is ready to help you understand TerribleSoft’s full product suite, pricing, and the scope of your future contractual obligations. Contact us by phone or form for a discovery call.</p>
-              </div>
-              <div className="ts-card">
-                <h5 style={{fontWeight:800}}>Headquarters</h5>
-                <p style={{fontSize:'0.88rem',color:'#555',lineHeight:'1.7',marginBottom:0}}>
-                  TerribleSoft, Inc.<br/>
-                  Enterprise Software Plaza<br/>
-                  Schaumburg, IL 60173<br/>
-                  United States<br/><br/>
-                  <em style={{color:'#aaa',fontSize:'0.8rem'}}>Billing inquiries must be submitted in writing to this address. Include your customer ID, contract number, and a detailed explanation of why you believe the charge is incorrect.</em>
-                </p>
+
+              <div className="ts-card" style={{border:'1px solid #fde68a',background:'#fffbeb'}}>
+                <h6 style={{fontWeight:700,color:'#92400e',marginBottom:'0.75rem'}}>Before You Call</h6>
+                <ul style={{fontSize:'0.82rem',color:'#78350f',lineHeight:1.9,paddingLeft:'1.2rem',margin:0}}>
+                  <li>Have your customer ID ready (format: TS-XXXXXX-B)</li>
+                  <li>Know which version of Solaris you are running</li>
+                  <li>Confirm whether the BNC terminator is in place</li>
+                  <li>Review the 847-page Terms of Service (Appendix F is particularly relevant)</li>
+                  <li>Accept that the implementation fee is non-refundable</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  )
+    </>
+  );
 }
