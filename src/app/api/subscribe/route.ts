@@ -1,50 +1,51 @@
-import { NextRequest, NextResponse } from 'next/server';
-import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
-
-const DB_PATH = process.env.SUBSCRIBER_DB_PATH || '/opt/terriblesoft/data/subscribers.db';
+import { NextRequest, NextResponse } from 'next/server'
+import path from 'path'
+import fs from 'fs'
 
 function getDb() {
-  const dir = path.dirname(DB_PATH);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const db = new Database(DB_PATH);
+  // Dynamic require so Next.js doesn't try to bundle better-sqlite3
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const Database = require('better-sqlite3')
+  const dataDir = process.env.DATA_DIR || path.join(process.cwd(), 'data')
+  if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true })
+  const db = new Database(path.join(dataDir, 'subscribers.db'))
   db.exec(`
     CREATE TABLE IF NOT EXISTS subscribers (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       email TEXT NOT NULL UNIQUE,
-      source TEXT DEFAULT 'website',
-      ip TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
-  `);
-  return db;
+  `)
+  return db
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const email = (body.email || '').trim().toLowerCase();
+    const body = await req.json()
+    const email = (body.email || '').trim().toLowerCase()
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 });
+      return NextResponse.json({ error: 'A valid email address is required.' }, { status: 400 })
     }
 
-    const db = getDb();
-    const ip = req.headers.get('x-real-ip') || req.headers.get('x-forwarded-for') || 'unknown';
-
+    const db = getDb()
     try {
-      db.prepare('INSERT INTO subscribers (email, ip) VALUES (?, ?)').run(email, ip);
-    } catch (e: any) {
-      if (e.message?.includes('UNIQUE')) {
-        return NextResponse.json({ ok: true, message: 'enrolled' });
+      db.prepare('INSERT INTO subscribers (email) VALUES (?)').run(email)
+    } catch (err: unknown) {
+      if (err instanceof Error && err.message.includes('UNIQUE')) {
+        return NextResponse.json(
+          { message: 'This address is already enrolled. Your compliance burden remains unchanged.' },
+          { status: 200 }
+        )
       }
-      throw e;
+      throw err
     }
 
-    return NextResponse.json({ ok: true, message: 'enrolled' });
+    return NextResponse.json({
+      message: 'Enrollment confirmed. You will receive communications on a schedule that reflects our current capacity constraints.'
+    })
   } catch (err) {
-    console.error('Subscribe error:', err);
-    return NextResponse.json({ error: 'Internal server error.' }, { status: 500 });
+    console.error('Subscribe error:', err)
+    return NextResponse.json({ error: 'Internal server error. Please submit Form TS-291.' }, { status: 500 })
   }
 }
