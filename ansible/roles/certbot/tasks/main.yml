@@ -1,22 +1,26 @@
 ---
-- name: Check if certificate already exists
+- name: Check if cert already exists
   stat:
-    path: /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+    path: /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem
   register: cert_stat
 
 - name: Obtain Let's Encrypt certificate
   command: >
-    certbot --nginx
-    -d {{ domain }}
-    -d {{ www_domain }}
+    certbot certonly --nginx
     --non-interactive
     --agree-tos
     --email {{ certbot_email }}
-    --redirect
+    --domains {{ domain_name }},www.{{ domain_name }}
   when: not cert_stat.stat.exists
+  notify: reload nginx
 
 - name: Ensure certbot renewal timer is enabled
   systemd:
     name: certbot.timer
-    enabled: yes
     state: started
+    enabled: yes
+
+- name: Test certbot renewal dry-run
+  command: certbot renew --dry-run
+  changed_when: false
+  failed_when: false
