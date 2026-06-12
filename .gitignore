@@ -1,16 +1,6 @@
-# Dependencies
 node_modules/
-
-# Next.js
 .next/
 out/
-
-# Env
 .env*.local
-
-# OS
-.DS_Store
-
-# Misc
-*.tsbuildinfo
-next-env.d.ts
+.env.local
+*.gsm
