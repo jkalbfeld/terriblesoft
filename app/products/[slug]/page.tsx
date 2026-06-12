@@ -123,7 +123,7 @@ const products: Record<string, {
       'FoxBand™ wearable compliance device (sold separately, $340/unit, minimum order 10)',
       'FoxBand™ battery life: 6 hours (sufficient for most mandatory all-hands meetings)',
     ],
-    finePrint: 'TerribleSoft is not responsible for medical, legal, or employment outcomes resulting from FocusFox™ deployment. FoxBand™ is classified as a “wellness device” for regulatory purposes. Level 3 and above require signed employee acknowledgment forms (form TS-847). Level 4 not available in California, the EU, or countries with functioning labor law. GazeVec™ ±40° accuracy means the system may occasionally flag non-distracted employees. TerribleSoft considers this an acceptable false positive rate.',
+    finePrint: 'TerribleSoft is not responsible for medical, legal, or employment outcomes resulting from FocusFox™ deployment. FoxBand™ is classified as a “wellness device” for regulatory purposes. Level 3 and above require signed employee acknowledgment forms (form TS-847). Level 4 not available in California, the EU, or countries with functioning labor law.',
     requirements: 'Windows 10 or later. macOS 11+ supported (FoxBand™ pairing only; GazeVec™ requires Windows). Webcam required. Minimum 720p for GazeVec™ accuracy. FoxBand™ requires Bluetooth 4.0 and paired iOS 12+ or Android 8+ device for management app.',
   },
   connect: {
@@ -141,8 +141,8 @@ const products: Record<string, {
       'Rollback capability (manual; requires FoxCare™ Enterprise support)',
       'Documentation (PDF, 1,200 pages; last updated Q1 2009)',
     ],
-    finePrint: 'TerribleSoft Connect™ is required for all multi-product deployments. It is not optional. Purchasing multiple TerribleSoft products without Connect™ results in products that do not exchange data. This is not a defect; it is an architecture decision. Implementation requires a certified TerribleSoft Connect™ Integration Architect ($2,400/day).',
-    requirements: 'Dedicated server required (not shared with other TerribleSoft products). Windows Server 2003 or HP-UX 11. 512MB RAM minimum (2GB recommended). Oracle 9i or SQL Server 2000 for integration database. Java Runtime Environment 1.4.',
+    finePrint: 'TerribleSoft Connect™ is required for all multi-product deployments. Purchasing multiple TerribleSoft products without Connect™ results in products that do not exchange data. This is not a defect; it is an architecture decision.',
+    requirements: 'Dedicated server required. Windows Server 2003 or HP-UX 11. 512MB RAM minimum. Oracle 9i or SQL Server 2000. Java Runtime Environment 1.4.',
   },
   foxtrepan: {
     name: 'FoxTrepan™',
@@ -159,7 +159,7 @@ const products: Record<string, {
       'Post-procedure wellness survey (optional)',
       'App sold separately ($4.99/month subscription)',
     ],
-    finePrint: 'FDA clearance status: Pending (Since 2017). FoxTrepan™ is not a medical device. It is a wellness device. These are different categories. TerribleSoft is not responsible for medical outcomes. Consult a physician before use. If you are unsure whether to consult a physician, consult a physician. Alexa integration requires Amazon Echo (sold separately). Depth control accuracy of ±3mm meets or exceeds competing consumer auto-trepanation firmware platforms.',
+    finePrint: 'FDA clearance status: Pending (Since 2017). FoxTrepan™ is not a medical device. It is a wellness device. These are different categories. TerribleSoft is not responsible for medical outcomes. Consult a physician before use. Depth control accuracy of ±3mm meets or exceeds competing consumer auto-trepanation firmware platforms.',
     requirements: 'Consumer-grade rotary tool (variable speed, 10,000–35,000 RPM). Bluetooth 4.2 device for app connectivity. iOS 14+ or Android 9+. Steady hand. Good lighting. Someone nearby.',
   },
 };
@@ -168,8 +168,9 @@ export async function generateStaticParams() {
   return Object.keys(products).map(slug => ({ slug }));
 }
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
-  const p = products[params.slug];
+export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const p = products[slug];
   if (!p) return <div className="container section-pad"><h1>Product not found</h1><a href="/products">Back to Products</a></div>;
 
   return (
@@ -227,7 +228,6 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                       </table>
                     </div>
                   </div>
-                  <p style={{fontSize:'0.72rem',color:'#999',marginTop:'0.5rem',textAlign:'center'}}>Screenshot coming soon. This is placeholder data. Do not make business decisions based on this interface.</p>
                 </div>
               )}
             </div>
@@ -243,16 +243,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 <h6 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'0.5rem',fontSize:'0.82rem'}}>System Requirements</h6>
                 <p style={{fontSize:'0.78rem',color:'#666',lineHeight:1.7}}>{p.requirements}</p>
               </div>
-
               <div className="ts-card mt-3" style={{border:'1px solid #fde68a',background:'#fffbeb'}}>
                 <h6 style={{fontWeight:700,color:'#92400e',fontSize:'0.82rem',marginBottom:'0.5rem'}}>⚠️ Important Notes</h6>
                 <p style={{fontSize:'0.78rem',color:'#78350f',lineHeight:1.6}}>{p.finePrint}</p>
-              </div>
-
-              <div className="ts-card mt-3" style={{border:'1px solid #e2e8f0'}}>
-                <h6 style={{fontWeight:700,color:'#0d1b2a',fontSize:'0.82rem',marginBottom:'0.5rem'}}>Support Options</h6>
-                <p style={{fontSize:'0.78rem',color:'#666',lineHeight:1.6}}>FoxCare™ support contracts available starting at $47,000/year. Email support response time: 3–5 business weeks. Phone support requires FoxCare™ Enterprise.</p>
-                <a href="/contact" style={{fontSize:'0.8rem',color:'#e8632a',textDecoration:'none',fontWeight:600}}>Purchase FoxCare™ →</a>
               </div>
             </div>
           </div>
