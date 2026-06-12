@@ -1,4 +1,5 @@
-export const metadata = { title: 'Contact — TerribleSoft™' }
+'use client'
+export const metadata_unused = { title: 'Contact — TerribleSoft™' }
 
 export default function ContactPage() {
   return (
@@ -35,12 +36,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <label className="block text-sm text-gray-400 mb-1">Message</label>
-                <textarea rows={5} className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500" placeholder="Describe your issue in detail. If you are reporting multiple simultaneous primaries, please include node names, timestamps, and your current emotional state." />
+                <textarea rows={5} className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-orange-500" placeholder="Describe your issue in detail. If reporting multiple simultaneous primaries, please include node names, timestamps, and your current emotional state." />
               </div>
               <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-3 rounded-lg transition-colors">
                 Submit Inquiry
               </button>
-              <p className="text-gray-600 text-xs">By submitting this form, your inquiry will be assigned ticket number #847291-B and routed to the appropriate team within 3–5 business decades. You will receive an automated confirmation that does not contain useful information.</p>
+              <p className="text-gray-600 text-xs">By submitting this form, your inquiry will be assigned ticket #847291-B and routed to the appropriate team within 3–5 business decades.</p>
             </form>
           </div>
 
@@ -62,7 +63,7 @@ export default function ContactPage() {
             </div>
             <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
               <h3 className="font-bold mb-3 text-orange-400">Emergency Support</h3>
-              <p className="text-gray-400 text-sm">For production outages and simultaneous primary events: Enterprise customers have access to our emergency line. Professional customers may submit a Priority ticket, which joins a separate queue. Starter customers are encouraged to review the documentation.</p>
+              <p className="text-gray-400 text-sm">For production outages and simultaneous primary events: Enterprise customers have access to our emergency line. Professional customers may submit a Priority ticket. Starter customers are encouraged to review the documentation.</p>
             </div>
           </div>
         </div>
