@@ -1,0 +1,21 @@
+[Unit]
+Description=TerribleSoft Next.js
+After=network.target
+
+[Service]
+User={{ app_user }}
+Group={{ app_user }}
+WorkingDirectory={{ app_dir }}/.next/standalone
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+Environment=PORT={{ app_port }}
+Environment=NODE_ENV=production
+Environment=HOSTNAME=0.0.0.0
+Environment=DB_PATH={{ app_dir }}/data/terriblesoft.db
+StandardOutput=journal
+StandardError=journal
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

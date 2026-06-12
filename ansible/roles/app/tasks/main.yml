@@ -1,0 +1,90 @@
+---
+- name: Create app directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create data directory for SQLite
+  file:
+    path: "{{ app_dir }}/data"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0750'
+
+- name: Clone or update repo
+  git:
+    repo: "{{ app_repo }}"
+    dest: "{{ app_dir }}"
+    version: "{{ app_branch }}"
+    force: yes
+  register: git_result
+
+- name: Install npm dependencies
+  npm:
+    path: "{{ app_dir }}"
+    state: present
+  environment:
+    NODE_ENV: development
+
+- name: Build Next.js application
+  command: npm run build
+  args:
+    chdir: "{{ app_dir }}"
+  environment:
+    NODE_ENV: production
+  when: git_result.changed
+  register: build_result
+
+- name: Force build if requested
+  command: npm run build
+  args:
+    chdir: "{{ app_dir }}"
+  environment:
+    NODE_ENV: production
+  when: not git_result.changed and (force_build | default(false))
+
+- name: Copy static assets to standalone directory
+  shell: |
+    cp -r {{ app_dir }}/.next/static {{ app_dir }}/.next/standalone/.next/static
+    cp -r {{ app_dir }}/public {{ app_dir }}/.next/standalone/public
+  when: git_result.changed or (force_build | default(false))
+
+- name: Set ownership on standalone directory
+  file:
+    path: "{{ app_dir }}/.next/standalone"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+
+- name: Set ownership on data directory
+  file:
+    path: "{{ app_dir }}/data"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0750'
+
+- name: Install systemd service
+  template:
+    src: terriblesoft.service.j2
+    dest: /etc/systemd/system/terriblesoft.service
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload systemd
+
+- name: Enable and start terriblesoft service
+  systemd:
+    name: terriblesoft
+    enabled: yes
+    state: started
+    daemon_reload: yes
+
+- name: Restart terriblesoft if code changed
+  systemd:
+    name: terriblesoft
+    state: restarted
+  when: git_result.changed or (force_build | default(false))
