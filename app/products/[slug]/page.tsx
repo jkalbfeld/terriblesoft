@@ -1,234 +1,263 @@
-import Link from 'next/link'
-
-const productData: Record<string, {
-  name: string, tagline: string, icon: string, desc: string,
-  features: string[], requirements: string, note?: string
+const products: Record<string, {
+  name: string;
+  icon: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  finePrint: string;
+  requirements: string;
+  screenshotData?: { headers: string[]; rows: (string | {text:string;cls:string})[][] };
 }> = {
   payrollpro: {
     name: 'PayRollPro™',
-    tagline: 'Payroll software so comprehensive, your accountant will need a support contract too.',
     icon: '💰',
-    desc: 'PayRollPro™ is TerribleSoft’s enterprise payroll processing platform, delivering comprehensive multi-jurisdiction tax calculation, direct deposit facilitation, and year-end reporting across all supported payroll configurations.',
+    tagline: 'Payroll software so comprehensive, your accountant will need a support contract too.',
+    description: 'PayRollPro™ is TerribleSoft’s flagship payroll management solution, purpose-built for organizations that require multi-jurisdictional payroll processing with the confidence that comes from a platform that has been in continuous development since 1997. Your employees will be paid. The timing is flexible.',
     features: [
       'Multi-jurisdiction tax calculation (accuracy not guaranteed)',
-      'Direct deposit processing: 1–7 business days',
-      'W-2 and 1099 generation (manual review strongly recommended)',
-      'Compliance with all applicable tax laws as of Q2 2003',
-      'Payroll journal and audit trail',
-      'Legacy COBOL calculation engine (maintained since 1994)',
-      'Export to Lotus 1-2-3 format',
-      'Integration with HRForce™ via TerribleSoft Connect™ (required)',
+      'Direct deposit (1–7 business days, subject to bank processing)',
+      'W-2 generation (manual review strongly recommended)',
+      'Compliance with all tax laws as of Q2 2003',
+      'Garnishment processing (manual configuration per jurisdiction)',
+      'Benefits deduction module (47 deduction types, 12 supported)',
+      'Year-end reporting package (additional licensing required)',
+      'Integration with HRForce™ via TerribleSoft Connect™ (sold separately)',
     ],
-    requirements: 'Windows 98 or Solaris 2.1. 32 MB RAM. 200 MB disk space. Internet Explorer 5.5 or Netscape Navigator 4.7 for web interface.',
-    note: 'PayRollPro™ is not responsible for payroll discrepancies resulting from jurisdictional tax law changes after Q2 2003. TerribleSoft offers a TaxPatch™ service for an additional annual fee.',
+    finePrint: 'Tax law compliance as of Q2 2003. Local jurisdiction updates available via Professional Services engagement ($47,000 minimum). Net pay calculation accuracy varies by jurisdiction. TerribleSoft is not responsible for IRS penalties arising from PayRollPro™ outputs. Results should be reviewed by a qualified accountant before submission.',
+    requirements: 'Windows 98 or Solaris 2.1. 32MB RAM minimum. 256MB recommended for organizations with more than 3 employees. ODBC-compliant database required (not included). Internet Explorer 5.5 or Netscape Navigator 4.7 for web module.',
+    screenshotData: {
+      headers: ['Employee', 'Pay Period', 'Gross Pay', 'Deductions', 'Net Pay', 'Status'],
+      rows: [
+        ['J. Anderson', 'Q2 2024', '$4,200.00', '$847.00', '$3,353.00', '✓ Processed'],
+        ['M. Thompson', 'Q2 2024', '$3,800.00', '$710.00', '$3,090.00', '⏳ Pending (since Q2)'],
+        ['R. Davis', 'Q1 2024', '$5,100.00', '$5,947.00', {text:'-$847.00', cls:'status-foxed'}, {text:'ERROR', cls:'status-foxed'}],
+        ['S. Wilson', 'Q3 2023', '$4,400.00', '$820.00', '$3,580.00', {text:'Pending (since Q3)', cls:'status-unknown'}],
+        ['K. Martinez', 'Q2 2024', '$3,600.00', '$675.00', '$2,925.00', '✓ Processed'],
+      ]
+    }
   },
   hrforce: {
     name: 'HRForce™',
+    icon: '👤',
     tagline: 'Human Resources management. Emphasis on “force.”',
-    icon: '🤝',
-    desc: 'HRForce™ provides comprehensive human resources management capabilities, from initial onboarding through offboarding, with every step thoroughly documented, screen-counted, and workflow-enforced.',
+    description: 'HRForce™ provides comprehensive human capital management capabilities for organizations that understand that people are their most important asset and would like to document that understanding across 14 onboarding screens.',
     features: [
-      'Employee onboarding workflow (average 14 screens)',
-      'Configurable performance review rating scale (1 to 1)',
-      'Org chart builder with hierarchical depth limit of 8',
-      'Benefits enrollment portal (annual open enrollment only)',
-      'Termination workflow (reviewed by legal team at least once)',
-      'Time and attendance tracking (±15 minutes accuracy)',
-      'Employee self-service portal (read-only)',
-      'Integration with PayRollPro™ via TerribleSoft Connect™ (required, sold separately)',
+      'Employee onboarding workflow (average: 14 screens, 3 business days)',
+      'Performance review module (configurable rating scales from 1 to 1)',
+      'Org chart builder (manual refresh required after any personnel change)',
+      'Termination workflow (reviewed by legal at least once)',
+      'PTO tracking (accrual logic configurable by certified HRForce™ administrator)',
+      'Employee self-service portal (IE6 recommended)',
+      'Compliance reporting (federal; state compliance module sold separately)',
+      'Integration with PayRollPro™ via TerribleSoft Connect™ (sold separately)',
     ],
-    requirements: 'Windows 2000 or Solaris 7. 64 MB RAM. 500 MB disk. Internet Explorer 6.0 required for full functionality.',
-    note: 'The termination workflow in HRForce™ has been reviewed by a legal professional. TerribleSoft does not warrant that this review reflects your jurisdiction’s current employment law. Form TS-391 (Employee Acknowledgment of Termination) must be signed prior to workflow completion.',
+    finePrint: 'TerribleSoft is not responsible for employment law outcomes resulting from HRForce™ configuration. Termination workflow has been reviewed by legal counsel. Legal counsel review does not constitute legal advice. Performance review module rating scale (1 to 1) is a known limitation under active development (Q2 2005 roadmap).',
+    requirements: 'Windows 98 SE or later. Solaris 2.1 supported. 64MB RAM minimum. Microsoft Access 2000 or later for local database mode. LDAP directory integration available with HRForce™ Connect Module ($12,000/year).',
   },
   medchartcloud: {
     name: 'MedChartCloud™',
-    tagline: 'HIPAA-compliant* patient record management for the modern healthcare organization.',
     icon: '🏥',
-    desc: 'MedChartCloud™ delivers enterprise-grade electronic health record management, billing integration, and appointment scheduling in a fully cloud-hosted environment certified on the browsers your clinical staff already use.',
+    tagline: 'HIPAA-compliant* patient record management for the modern healthcare enterprise.',
+    description: 'MedChartCloud™ delivers comprehensive electronic health record management, billing integration, and clinical workflow tools to healthcare organizations that require a HIPAA-compliant* solution with a browser-based interface certified on the leading web platforms of the early 2000s.',
     features: [
-      'Patient record management and EHR storage',
-      'Appointment scheduling (double-booking enabled by default)',
-      'Billing integration with major payers',
-      'HIPAA compliance module available (sold separately: $18,000/yr)',
-      'Certified on Internet Explorer 6, Netscape Navigator 7',
-      'Patient portal (login functionality in beta since 2011)',
-      'ICD-9 code support (ICD-10 migration: Q2 2006 roadmap)',
-      'HL7 v2.1 interface engine',
+      'Patient record management (structured and unstructured data)',
+      'Billing and claims integration (manual clearinghouse submission)',
+      'Appointment scheduling (double-booking by design — increases patient throughput)',
+      'E-prescribing module (fax delivery; electronic DEA number required)',
+      'Lab results integration (HL7 v2.3 supported)',
+      'HIPAA audit logging (logs retained for 6 years or until disk fills, whichever comes first)',
+      'Patient portal (IE6 and Netscape Navigator 7)',
+      'ICD-10 billing codes (ICD-10-CM as of 2015 edition)',
     ],
-    requirements: 'Internet Explorer 6.0 required. Windows XP or Solaris 7. 128 MB RAM. Clinical workstations must not have popup blockers enabled.',
-    note: '*HIPAA compliance module sold separately ($18,000/year). MedChartCloud™ itself has not been independently audited for HIPAA compliance. The word “cloud” refers to TerribleSoft’s managed hosting environment in Schaumburg, IL.',
+    finePrint: '*HIPAA compliance module sold separately, $18,000/year. Base product provides the interface; compliance is a configurable add-on. MedChartCloud™ has crashed during 14 consecutive audits at one major health system. The interface is very blue. TerribleSoft recommends IE6 for optimal performance.',
+    requirements: 'Windows 2000 or Windows XP. Solaris 7 supported with FoxSCSI™ bridge. 128MB RAM. SQL Server 2000 or Oracle 8i. Internet Explorer 6 recommended. Netscape Navigator 7 supported. Chrome, Firefox, Safari: not tested.',
   },
   supplychainsuite: {
     name: 'SupplyChainSuite™',
-    tagline: '47 modules. You need all 47. No, you cannot buy fewer.',
     icon: '📦',
-    desc: 'SupplyChainSuite™ provides end-to-end supply chain visibility, vendor management, and logistics optimization across all 47 integrated modules. All modules are required. Module dependencies are documented in Schedule 7 of the license agreement.',
+    tagline: '47 modules. You need all 47. No, you cannot buy fewer.',
+    description: 'SupplyChainSuite™ is TerribleSoft’s comprehensive supply chain management platform, encompassing every aspect of your logistics and procurement operations across 47 tightly integrated modules. The modules cannot be separated. This is by design. A Gartner† analyst once described the suite as “a system.”',
     features: [
-      'Inventory tracking and management (±15% accuracy)',
-      'Vendor management and procurement',
-      'Logistics optimization (we move the boxes to where the boxes need to be)',
-      'Demand forecasting module (Gartner† once described it as “a system”)',
-      'Warehouse management integration',
-      'EDI 850/856/810 support',
-      'All 47 modules included (and required)',
-      'FoxFlow™ workflow engine (module 34 of 47)',
+      'Inventory tracking (±15% accuracy, configurable tolerance)',
+      'Vendor management (approved vendor list, manual maintenance)',
+      'Purchase order workflow (12-step approval chain, all 12 required)',
+      'Logistics optimization (“we move the boxes to where the boxes need to be”)',
+      'Demand forecasting module (statistical; results are directional)',
+      'Warehouse management (barcode scanning via RS-232 terminal)',
+      'EDI integration (X12 v3010 and X12 v3020)',
+      'Executive dashboard (refreshes every 4 business hours)',
     ],
-    requirements: 'Solaris 7 or Windows NT 4.0 SP6. 256 MB RAM. 10 GB disk. Oracle 8i database required (not included). Sun SparcServer 1000 or equivalent recommended for full 47-module deployment.',
-    note: '† Gartner analyst quote from internal email, not a published report. Full context not available.',
+    finePrint: '† Gartner analyst quote sourced from an internal email we cannot share. All 47 modules are licensed as a bundle. Individual module pricing is not available. Demand forecasting accuracy not warranted. ±15% inventory accuracy is a system specification, not a defect.',
+    requirements: 'Windows NT 4.0 Server or later. HP-UX 9 supported. 256MB RAM minimum (2GB recommended for all 47 modules active). Oracle 8i or SQL Server 7.0. 50GB disk space for module installation. VT220-compatible terminal required for warehouse module.',
   },
   insights: {
     name: 'TerribleSoft Insights™',
-    tagline: 'Business intelligence that confirms what you already feared.',
     icon: '📊',
-    desc: 'TerribleSoft Insights™ delivers powerful business intelligence dashboards, reporting, and AI-powered analytics to give your leadership team the data-driven confidence to make the decisions they were going to make anyway.',
+    tagline: 'Business intelligence that confirms what you already feared.',
+    description: 'TerribleSoft Insights™ delivers enterprise business intelligence capabilities to organizations ready to confront the data they have been avoiding. With AI-Powered Analytics™ (linear regression, 1997 edition) and a reporting engine that can generate a PDF in under 45 minutes, Insights™ transforms your data into conclusions you could have reached without software.',
     features: [
-      'Executive dashboard and reporting suite',
-      'AI-Powered Analytics™ engine (linear regression, 1997 edition)',
-      'Drill-down reporting (up to 2 levels)',
-      'CSV export with randomized column order (for security)',
-      'Scheduled report delivery via email or fax',
-      'Integration with all TerribleSoft products via Connect™',
-      'KPI tracking (KPIs defined by customer, not verified by TerribleSoft)',
-      'Mobile-responsive design (IE6 on Windows Mobile)',
+      'Interactive dashboard (IE6 optimized; other browsers: results may vary)',
+      'Report builder (47 report templates; custom reports via Professional Services)',
+      'AI-Powered Analytics™ (linear regression engine, 1997 algorithm)',
+      'Data connectors: CSV, Excel 97, dBase III, and “other”',
+      'CSV export (columns in random order, for security)',
+      'Scheduled reports (email delivery; SMTP configuration required)',
+      'KPI tracking (KPIs defined at implementation; changes require re-implementation)',
+      'Executive summary module (auto-generates summaries; results should be reviewed)',
     ],
-    requirements: 'Windows XP or Solaris 7. 128 MB RAM. Internet Explorer 6.0. Microsoft Excel 97 recommended for CSV import.',
-    note: 'AI-Powered Analytics™ is a registered trademark. The underlying technology is a linear regression model implemented in 1997. TerribleSoft is evaluating neural network capabilities for a future release.',
+    finePrint: '“AI-Powered” refers to automated statistical processing using linear regression. Insights™ does not use machine learning, neural networks, or any technology developed after 1997. CSV column randomization is a documented security feature. Disabling it requires a FoxCare™ Enterprise support ticket.',
+    requirements: 'Windows 98 or later. Solaris 2.1 supported. 128MB RAM. Internet Explorer 5.5 minimum for dashboard. Java Runtime Environment 1.3 required for report engine. Screen resolution 800x600 minimum.',
   },
   focusfox: {
     name: 'FocusFox™',
+    icon: '👁️',
     tagline: 'Employee engagement enforcement for the modern distributed workforce.',
-    icon: '👀',
-    desc: 'FocusFox™ uses proprietary GazeVec™ eye-tracking technology to ensure your distributed workforce remains fully present during all scheduled collaboration events, with configurable corrective response escalation via the FoxBand™ wearable compliance device.',
+    description: 'FocusFox™ uses proprietary GazeVec™ eye-tracking technology integrated with your video conferencing platform to ensure meeting participants are fully engaged. When an attention deficit event is detected, FocusFox™ delivers a configurable corrective response via the FoxBand™ wearable compliance device. Meetings have never been more attended.',
     features: [
-      'GazeVec™ eye-tracking (±40° accuracy, calibration every 15 minutes)',
-      'Zoom, Teams, and WebEx integration',
-      'Google Meet: Q3 2004 roadmap',
-      'FoxBand™ wearable compliance device ($340/unit, min. order 10)',
-      'Level 1–4 corrective response escalation (IT-configurable)',
-      'Real-time attention heatmap dashboard',
+      'GazeVec™ eye-tracking (±40° accuracy; calibration every 15 minutes)',
+      'Zoom, Teams, and WebEx integration (Google Meet: Q3 2004 roadmap)',
+      'Real-time attention heatmap across all employees',
+      'Four corrective response levels (Level 4 available to Enterprise tier; description on request)',
       '“Voluntary” enrollment workflow (“employees are informed”)',
-      'HR audit trail for documentation and litigation preparation',
+      'HR audit trail for documentation and legal proceedings',
+      'FoxBand™ wearable compliance device (sold separately, $340/unit, minimum order 10)',
+      'FoxBand™ battery life: 6 hours (sufficient for most mandatory all-hands meetings)',
     ],
-    requirements: 'Windows 10 or macOS 12+. Webcam required. FoxBand™ devices required for Level 2+ corrective response. Employees must be informed of enrollment per Form TS-847.',
-    note: 'TerribleSoft is not responsible for medical, legal, or employment outcomes resulting from FocusFox™ deployment. FoxBand™ is classified as a “wellness device” for regulatory purposes. Level 3 corrective response and above require signed employee acknowledgment forms. Level 4 is not available in California, the EU, or countries with functioning labor law. FoxBand™ battery life: 6 hours (sufficient for most mandatory all-hands meetings).',
+    finePrint: 'TerribleSoft is not responsible for medical, legal, or employment outcomes resulting from FocusFox™ deployment. FoxBand™ is classified as a “wellness device” for regulatory purposes. Level 3 and above require signed employee acknowledgment forms (form TS-847). Level 4 not available in California, the EU, or countries with functioning labor law. GazeVec™ ±40° accuracy means the system may occasionally flag non-distracted employees. TerribleSoft considers this an acceptable false positive rate.',
+    requirements: 'Windows 10 or later. macOS 11+ supported (FoxBand™ pairing only; GazeVec™ requires Windows). Webcam required. Minimum 720p for GazeVec™ accuracy. FoxBand™ requires Bluetooth 4.0 and paired iOS 12+ or Android 8+ device for management app.',
   },
   connect: {
     name: 'TerribleSoft Connect™',
+    icon: '🔗',
     tagline: 'Integration middleware for connecting TerribleSoft products to each other.',
-    icon: '🔌',
-    desc: 'TerribleSoft Connect™ is required for using more than one TerribleSoft product simultaneously. It provides the integration middleware layer that enables product-to-product communication across the TerribleSoft enterprise suite.',
+    description: 'TerribleSoft Connect™ is the integration backbone required for using more than one TerribleSoft product simultaneously. Without Connect™, each product operates as a standalone island of data. With Connect™, those islands are joined by a bridge that requires its own licensing, its own server, and its own implementation engagement.',
     features: [
-      'Enables inter-product communication',
-      'Required for any multi-product deployment',
-      'Message queue with FoxQueue™ technology',
-      'Supports all TerribleSoft products (as of their respective release dates)',
-      'API documentation available under NDA',
-      'FoxBus™ enterprise service bus (v1.2)',
-      'XML-based data interchange (DTD available on request)',
-      'Priced per product pair',
+      'Bidirectional sync between any two TerribleSoft products (latency varies)',
+      'Event-driven integration engine (polling interval: configurable, minimum 15 minutes)',
+      'Error queue management (manual review required; errors do not self-resolve)',
+      'Data transformation layer (47 transformation templates)',
+      'API gateway for third-party integrations (REST and SOAP; GraphQL: “we are aware this exists”)',
+      'Integration monitoring dashboard (FoxWatch™ alerts via pager)',
+      'Rollback capability (manual; requires FoxCare™ Enterprise support)',
+      'Documentation (PDF, 1,200 pages; last updated Q1 2009)',
     ],
-    requirements: 'Must be installed before any other TerribleSoft products. Solaris 7 or Windows NT 4.0. 128 MB RAM. Oracle 8i or SQL Server 7.0 required for message persistence.',
-    note: 'TerribleSoft Connect™ must be purchased separately for each pair of products you wish to connect. A three-product deployment requires three Connect™ licenses. Pricing is per-product-pair per server per year.',
+    finePrint: 'TerribleSoft Connect™ is required for all multi-product deployments. It is not optional. Purchasing multiple TerribleSoft products without Connect™ results in products that do not exchange data. This is not a defect; it is an architecture decision. Implementation requires a certified TerribleSoft Connect™ Integration Architect ($2,400/day).',
+    requirements: 'Dedicated server required (not shared with other TerribleSoft products). Windows Server 2003 or HP-UX 11. 512MB RAM minimum (2GB recommended). Oracle 9i or SQL Server 2000 for integration database. Java Runtime Environment 1.4.',
   },
+  foxtrepan: {
+    name: 'FoxTrepan™',
+    icon: '🩹',
+    tagline: 'Take your wellness into your own hands.',
+    description: 'FoxTrepan™ is TerribleSoft’s consumer wellness firmware solution, designed for individuals who are serious about taking a proactive, hands-on approach to personal health management. Compatible with most consumer-grade rotary tools, FoxTrepan™ brings the precision of enterprise software to personal wellness.',
+    features: [
+      'Precision depth control (±3mm)',
+      'Bluetooth-enabled real-time telemetry',
+      'Alexa integration (“Alexa, how deep is too deep”)',
+      'Sterilization wizard included in firmware v4.1+',
+      'Compatible with most consumer-grade rotary tools',
+      'Emergency stop gesture recognition (accuracy: ±40°)',
+      'Post-procedure wellness survey (optional)',
+      'App sold separately ($4.99/month subscription)',
+    ],
+    finePrint: 'FDA clearance status: Pending (Since 2017). FoxTrepan™ is not a medical device. It is a wellness device. These are different categories. TerribleSoft is not responsible for medical outcomes. Consult a physician before use. If you are unsure whether to consult a physician, consult a physician. Alexa integration requires Amazon Echo (sold separately). Depth control accuracy of ±3mm meets or exceeds competing consumer auto-trepanation firmware platforms.',
+    requirements: 'Consumer-grade rotary tool (variable speed, 10,000–35,000 RPM). Bluetooth 4.2 device for app connectivity. iOS 14+ or Android 9+. Steady hand. Good lighting. Someone nearby.',
+  },
+};
+
+export async function generateStaticParams() {
+  return Object.keys(products).map(slug => ({ slug }));
 }
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = productData[params.slug]
-
-  if (!product) {
-    return (
-      <div className="container" style={{padding:'80px 0',textAlign:'center'}}>
-        <h1>Product Not Found</h1>
-        <p style={{color:'#888'}}>This product may have been discontinued, renamed, or moved to the Q3 2004 roadmap.</p>
-        <Link href="/products" className="btn-ts-primary">View All Products</Link>
-      </div>
-    )
-  }
+  const p = products[params.slug];
+  if (!p) return <div className="container section-pad"><h1>Product not found</h1><a href="/products">Back to Products</a></div>;
 
   return (
-    <div>
-      <section className="product-hero">
+    <>
+      <section className="ts-product-hero">
         <div className="container">
-          <div className="row align-items-center g-4">
-            <div className="col-lg-8">
-              <div style={{fontSize:'3rem',marginBottom:'0.75rem'}}>{product.icon}</div>
-              <h1>{product.name}</h1>
-              <p style={{fontSize:'1.1rem',color:'rgba(255,255,255,0.7)',fontStyle:'italic',maxWidth:'560px',marginTop:'0.5rem'}}>{product.tagline}</p>
-              <div className="mt-4 d-flex flex-wrap gap-3">
-                <Link href="/contact" className="btn-ts-primary">Contact Sales</Link>
-                <Link href="/pricing" className="btn-ts-outline">View Pricing</Link>
-              </div>
-            </div>
+          <div className="ts-section-label">TerribleSoft™ Product Suite</div>
+          <div style={{fontSize:'2.5rem',marginBottom:'0.5rem'}}>{p.icon}</div>
+          <h1 style={{fontWeight:800,fontSize:'2.5rem',color:'#fff',letterSpacing:'-1px',marginBottom:'0.75rem'}}>{p.name}</h1>
+          <p style={{color:'rgba(255,255,255,0.7)',fontSize:'1.05rem',maxWidth:'580px',marginBottom:'2rem',lineHeight:1.6}}>{p.tagline}</p>
+          <div className="d-flex flex-wrap gap-3">
+            <a href="/contact" className="ts-cta-primary">Contact Sales</a>
+            <a href="/contact" className="ts-cta-secondary">Request Demo</a>
           </div>
         </div>
       </section>
 
-      <section className="ts-section">
+      <section className="section-pad">
         <div className="container">
           <div className="row g-5">
-            <div className="col-lg-7">
-              <h2 style={{fontWeight:800,color:'var(--ts-navy)',marginBottom:'1rem'}}>Overview</h2>
-              <p style={{fontSize:'1rem',color:'#444',lineHeight:'1.8'}}>{product.desc}</p>
+            <div className="col-lg-8">
+              <h2 style={{fontWeight:800,color:'#0d1b2a',marginBottom:'1rem',fontSize:'1.8rem'}}>Product Overview</h2>
+              <p style={{color:'#4a5568',lineHeight:1.8,fontSize:'1rem',marginBottom:'2rem'}}>{p.description}</p>
 
-              <h3 style={{fontWeight:800,color:'var(--ts-navy)',marginTop:'2rem',marginBottom:'1rem',fontSize:'1.4rem'}}>Key Features</h3>
-              <ul style={{paddingLeft:'1.5rem',lineHeight:'2',color:'#444',fontSize:'0.95rem'}}>
-                {product.features.map((f, i) => <li key={i}>{f}</li>)}
+              <h3 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'1rem',fontSize:'1.3rem'}}>Key Features</h3>
+              <ul style={{lineHeight:2.1,color:'#4a5568'}}>
+                {p.features.map((f, i) => <li key={i}>{f}</li>)}
               </ul>
 
-              {product.note && (
-                <div className="ai-artifact mt-4">
-                  <strong>Important Note:</strong> {product.note}
+              {p.screenshotData && (
+                <div className="mt-4">
+                  <h4 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'1rem'}}>Product Interface</h4>
+                  <div className="screenshot-frame">
+                    <div className="frame-bar">
+                      <span className="dot" style={{background:'#ff5f57'}}></span>
+                      <span className="dot" style={{background:'#febc2e'}}></span>
+                      <span className="dot" style={{background:'#28c840'}}></span>
+                      <span style={{color:'#666',fontSize:'0.7rem',marginLeft:'0.5rem'}}>{p.name} — [screenshot coming soon]</span>
+                    </div>
+                    <div className="frame-content">
+                      <table className="table table-dark table-sm mb-0">
+                        <thead>
+                          <tr>{p.screenshotData.headers.map(h => <th key={h}>{h}</th>)}</tr>
+                        </thead>
+                        <tbody>
+                          {p.screenshotData.rows.map((row, i) => (
+                            <tr key={i}>
+                              {row.map((cell, j) => {
+                                if (typeof cell === 'string') return <td key={j}>{cell}</td>;
+                                return <td key={j}><span className={cell.cls}>{cell.text}</span></td>;
+                              })}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <p style={{fontSize:'0.72rem',color:'#999',marginTop:'0.5rem',textAlign:'center'}}>Screenshot coming soon. This is placeholder data. Do not make business decisions based on this interface.</p>
                 </div>
               )}
             </div>
-            <div className="col-lg-5">
-              <div className="ts-card" style={{marginBottom:'1.5rem'}}>
-                <h5>System Requirements</h5>
-                <p style={{fontSize:'0.88rem',color:'#555',lineHeight:'1.7'}}>{product.requirements}</p>
+
+            <div className="col-lg-4">
+              <div className="ts-card" style={{background:'#f8f9fa',border:'1px solid #e9ecef'}}>
+                <h5 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'1rem'}}>Pricing</h5>
+                <div style={{fontSize:'1.8rem',fontWeight:900,color:'#0d1b2a',marginBottom:'0.25rem'}}>Contact Sales</div>
+                <p style={{fontSize:'0.82rem',color:'#666',marginBottom:'1.5rem'}}>Pricing available upon execution of mutual NDA. Implementation not included. Breathing not included.</p>
+                <a href="/contact" className="ts-cta-primary w-100" style={{textAlign:'center',display:'block',marginBottom:'0.75rem'}}>Contact Sales</a>
+                <a href="/contact" className="btn btn-outline-secondary w-100" style={{fontSize:'0.9rem'}}>Request Demo</a>
+                <hr/>
+                <h6 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'0.5rem',fontSize:'0.82rem'}}>System Requirements</h6>
+                <p style={{fontSize:'0.78rem',color:'#666',lineHeight:1.7}}>{p.requirements}</p>
               </div>
 
-              <div className="screenshot-coming">
-                <div style={{fontSize:'2rem',marginBottom:'1rem'}}>📸</div>
-                <p style={{color:'#888',marginBottom:'1rem',fontSize:'0.9rem'}}>Product screenshot coming soon</p>
-                <div className="progress" style={{width:'100%',height:'8px'}}>
-                  <div className="progress-bar" role="progressbar" style={{width:'73%',background:'var(--ts-accent)'}}></div>
-                </div>
-                <p style={{fontSize:'0.72rem',color:'#bbb',marginTop:'0.5rem'}}>73% complete</p>
+              <div className="ts-card mt-3" style={{border:'1px solid #fde68a',background:'#fffbeb'}}>
+                <h6 style={{fontWeight:700,color:'#92400e',fontSize:'0.82rem',marginBottom:'0.5rem'}}>⚠️ Important Notes</h6>
+                <p style={{fontSize:'0.78rem',color:'#78350f',lineHeight:1.6}}>{p.finePrint}</p>
               </div>
 
-              <div className="ts-card mt-3" style={{background:'var(--ts-light)'}}>
-                <h6 style={{fontWeight:700,color:'var(--ts-navy)'}}>Requires TerribleSoft Connect™</h6>
-                <p style={{fontSize:'0.82rem',color:'#666',margin:0}}>This product requires TerribleSoft Connect™ middleware to integrate with other TerribleSoft products. Sold separately. Priced per product pair.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Testimonials specific to this product */}
-          <div className="mt-5 pt-4" style={{borderTop:'1px solid #eee'}}>
-            <h3 style={{fontWeight:800,marginBottom:'1.5rem'}}>Customer Perspectives</h3>
-            <div className="row g-4">
-              <div className="col-md-6">
-                <div className="ts-testimonial">
-                  <p>&ldquo;{product.name} has transformed our operations in ways that are difficult to describe, and in some cases, difficult to reverse.&rdquo;</p>
-                  <div className="attribution">Enterprise Customer, name withheld</div>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="ai-artifact">
-                  I cannot generate a realistic testimonial for this product as I do not have personal experiences. Please replace this placeholder with a real customer quote. — [PLACEHOLDER]
-                </div>
+              <div className="ts-card mt-3" style={{border:'1px solid #e2e8f0'}}>
+                <h6 style={{fontWeight:700,color:'#0d1b2a',fontSize:'0.82rem',marginBottom:'0.5rem'}}>Support Options</h6>
+                <p style={{fontSize:'0.78rem',color:'#666',lineHeight:1.6}}>FoxCare™ support contracts available starting at $47,000/year. Email support response time: 3–5 business weeks. Phone support requires FoxCare™ Enterprise.</p>
+                <a href="/contact" style={{fontSize:'0.8rem',color:'#e8632a',textDecoration:'none',fontWeight:600}}>Purchase FoxCare™ →</a>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  )
-}
-
-export function generateStaticParams() {
-  return [
-    { slug: 'payrollpro' }, { slug: 'hrforce' }, { slug: 'medchartcloud' },
-    { slug: 'supplychainsuite' }, { slug: 'insights' }, { slug: 'focusfox' }, { slug: 'connect' }
-  ]
+    </>
+  );
 }
