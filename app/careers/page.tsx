@@ -1,110 +1,110 @@
-export default function CareersPage() {
-  const roles = [
-    {
-      title: 'Senior ClusterFox™ Implementation Consultant',
-      dept: 'Professional Services',
-      location: 'Schaumburg, IL (on-site) or Customer Site (travel 90%)',
-      req: [
-        'Must own a personal BNC crimping tool (non-negotiable)',
-        '5+ years experience with Solaris 2.x or above',
-        'Familiarity with Sun SparcStation hardware (required)',
-        'Experience managing active/active/also-active failover configurations',
-        'Ability to explain FoxHA™ split-election behavior to C-suite executives calmly',
-        'Tolerance for extended customer engagement timelines (847+ days)',
-      ],
-      desc: 'You will lead ClusterFox™ implementation engagements from kickoff through post-go-live stabilization. Most engagements are currently in month 14–18. You will not be the first consultant on any of these. You may not be the last.',
-    },
-    {
-      title: 'Support Specialist, Tier 1',
-      dept: 'Customer Support',
-      location: 'Schaumburg, IL (on-site required)',
-      req: [
-        'Ability to maintain calm under sustained emotional pressure',
-        'Experience with ticketing systems (we use a proprietary one; training provided in Q3 2004)',
-        'Familiarity with FoxCare™ contract tiers and scope boundaries',
-        'Comfortable saying “that’s a known issue” with conviction',
-        'Escalation experience not required (there is nowhere to escalate)',
-      ],
-      desc: 'You are the only line of defense. There are no others. Tier 2 support is currently unfilled. Tier 3 is Gerald. You will represent TerribleSoft to customers at their most vulnerable moments and redirect them to the documentation, which is available on request.',
-    },
-    {
-      title: 'Enterprise Account Executive',
-      dept: 'Sales',
-      location: 'Remote (wherever Solaris still runs)',
-      req: [
-        'Quota: $2,000,000 annually',
-        'Territory: Organizations with active Solaris, HP-UX, or IRIX infrastructure',
-        'Experience selling multi-year contractual commitments',
-        'Comfort with procurement cycles of 18–847 months',
-        'Ability to identify customer pain points and explain that our product addresses them in a future release',
-      ],
-      desc: 'You will prospect, qualify, and close enterprise deals across TerribleSoft’s target verticals: legacy UNIX infrastructure, regulated industries, and organizations whose IT leadership has recently changed. Your pipeline is your own. Your quota is not.',
-    },
-    {
-      title: 'Product Manager, ClusterFox™',
-      dept: 'Product',
-      location: 'Schaumburg, IL',
-      req: [
-        'Own the ClusterFox™ product roadmap (no one reads the roadmap)',
-        '3+ years of product management in enterprise software',
-        'Ability to explain why Linux support has been “Q3 2004” since 2003',
-        'Experience managing a backlog of 847 known issues',
-        'Comfort with roadmap commitments that are “indicative, not binding”',
-        'Stakeholder management skills (the stakeholders will ask about Linux)',
-      ],
-      desc: 'You will own the ClusterFox™ product vision, roadmap, and release planning process. You will work closely with engineering to prioritize features, manage the known issue register, and communicate platform direction to Sales, Support, and customers who have formally requested a roadmap update.',
-    },
-  ]
+const roles = [
+  {
+    title: 'Senior ClusterFox™ Implementation Consultant',
+    dept: 'Professional Services',
+    location: 'Schaumburg, IL (on-site required)',
+    type: 'Full-time',
+    description: 'You will be the primary point of contact for enterprise customers during their ClusterFox™ implementation, which typically spans 18–36 months. You will develop deep expertise in Solaris 2.1, FoxHA™ arbitration behavior, and how to explain to a CTO why three nodes are simultaneously reporting as Primary.',
+    requirements: [
+      'Must own personal BNC crimping tool',
+      '5+ years ClusterFox™ implementation experience, or equivalent suffering',
+      'Sun SparcStation administration experience strongly preferred',
+      'Ability to remain calm when FoxWatch™ pager alerts arrive during dinner',
+      'Valid driver’s license (site visits to customers who still run Solaris)',
+      'Experience with Appendix F (will be tested)',
+    ],
+  },
+  {
+    title: 'Support Specialist',
+    dept: 'Customer Support',
+    location: 'Schaumburg, IL',
+    type: 'Full-time',
+    description: 'You are the only line of defense between our customers and the full consequences of their infrastructure decisions. There are no others. You will manage a queue of FoxCare™ tickets, reclassify customer-submitted Severity 1 issues to Severity 3 within two business days, and provide solutions or plausible-sounding alternatives.',
+    requirements: [
+      'Strong written communication skills for explaining why the documentation says Q3 2004',
+      'Empathy for customers in contractual relationships they cannot exit',
+      'Familiarity with at least two end-of-life operating systems',
+      'Ability to reference Appendix F from memory',
+      'Resilience',
+    ],
+  },
+  {
+    title: 'Enterprise Account Executive',
+    dept: 'Sales',
+    location: 'Remote (travel required; territory: wherever Solaris still runs)',
+    type: 'Full-time',
+    description: 'You will identify, engage, and close enterprise software agreements with organizations that have aging infrastructure and limited migration options. Quota: $2M annually. Territory: anywhere a Wellfleet router is still operational. You will also manage the renewal process, which is mostly handled by our contract structure but benefits from a human touch.',
+    requirements: [
+      '7+ years enterprise software sales experience',
+      'Comfort discussing multi-decade software commitments with C-level executives',
+      'Working knowledge of legacy Unix platforms is a significant advantage',
+      'Ability to describe ClusterFox™’s Linux roadmap with confidence',
+      'Valid passport (some customers are in undisclosed locations)',
+    ],
+  },
+  {
+    title: 'Product Manager, ClusterFox™',
+    dept: 'Product',
+    location: 'Schaumburg, IL',
+    type: 'Full-time',
+    description: 'You will own the ClusterFox™ product roadmap. The roadmap currently extends through Q3 2025 and contains several items that have been on it since Q3 2004. You will prioritize features, work with engineering to estimate delivery timelines, and communicate roadmap updates to customers who ask about Linux support. No one reads the roadmap, but it needs to exist.',
+    requirements: [
+      '3+ years product management experience in enterprise software',
+      'Comfort with roadmap items measured in decades rather than sprints',
+      'Experience writing requirements for features that may not ship',
+      'Familiarity with the concept of backward compatibility as a binding life philosophy',
+      'Strong stakeholder communication skills (managing expectations is 80% of this role)',
+    ],
+  },
+];
 
+export default function CareersPage() {
   return (
-    <div>
-      <section className="product-hero">
+    <>
+      <section className="ts-product-hero">
         <div className="container">
-          <h1>Careers at TerribleSoft™</h1>
-          <p style={{fontSize:'1.1rem',color:'rgba(255,255,255,0.7)',maxWidth:'560px',marginTop:'1rem'}}>
-            Join the TerribleSoft family. We have snacks (sometimes). We offer competitive
-            salaries, comprehensive benefits, and the opportunity to work on software that
-            is contractually embedded in critical infrastructure across four continents.
-          </p>
+          <div className="ts-section-label">Join Us</div>
+          <h1 style={{fontWeight:800,fontSize:'2.8rem',color:'#fff',letterSpacing:'-1px',marginBottom:'1rem'}}>Careers at TerribleSoft™</h1>
+          <p style={{color:'rgba(255,255,255,0.65)',fontSize:'1.05rem',maxWidth:'560px'}}>Join the TerribleSoft family. We have snacks (sometimes). We offer competitive compensation, a comprehensive benefits package, and the opportunity to work on software that has been in production since 1995.</p>
         </div>
       </section>
 
-      <section className="ts-section">
+      <section className="section-pad">
         <div className="container">
-          <div style={{maxWidth:'800px',margin:'0 auto'}}>
-            <div className="ts-section-header" style={{textAlign:'left',marginBottom:'2rem'}}>
-              <h2>Open Positions</h2>
-              <p style={{margin:0}}>We are currently hiring for the following roles. Applications are reviewed in the order received, typically within one fiscal quarter.</p>
-            </div>
-
-            {roles.map((role, i) => (
-              <div key={i} style={{marginBottom:'2.5rem',padding:'2rem',border:'1px solid #e2e8f0',borderRadius:'12px',background:'#fff'}}>
-                <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
-                  <div>
-                    <h4 style={{fontWeight:800,color:'var(--ts-navy)',marginBottom:'0.25rem'}}>{role.title}</h4>
-                    <div style={{fontSize:'0.82rem',color:'#888'}}>
-                      <span style={{marginRight:'1rem'}}>🏛️ {role.dept}</span>
-                      <span>📍 {role.location}</span>
-                    </div>
-                  </div>
-                  <a href="/contact" className="btn-ts-primary" style={{fontSize:'0.85rem',padding:'8px 18px',whiteSpace:'nowrap'}}>Apply Now</a>
-                </div>
-                <p style={{marginTop:'1rem',color:'#555',lineHeight:'1.7',fontSize:'0.92rem'}}>{role.desc}</p>
-                <h6 style={{fontWeight:700,marginTop:'1rem',marginBottom:'0.5rem'}}>Requirements</h6>
-                <ul style={{paddingLeft:'1.5rem',color:'#555',fontSize:'0.88rem',lineHeight:'1.8'}}>
-                  {role.req.map((r, j) => <li key={j}>{r}</li>)}
-                </ul>
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2">
+              <div className="text-center mb-5">
+                <div className="ts-section-label">Open Positions</div>
+                <h2 className="ts-section-title">Current Openings</h2>
+                <p className="text-muted">We are a growing company with stable legacy infrastructure needs. All positions are full-time unless otherwise noted. We are an equal opportunity employer.</p>
               </div>
-            ))}
 
-            <div style={{background:'#f4f6f9',borderRadius:'12px',padding:'2rem',textAlign:'center',marginTop:'2rem'}}>
-              <h5 style={{fontWeight:800}}>Don’t see your role?</h5>
-              <p style={{color:'#666',fontSize:'0.9rem'}}>Send your resume to careers@terriblesoft.com with your area of expertise and desired role. We review general applications on a rolling basis and will reach out if a matching position opens, or when our ticketing system is cleared.</p>
-              <p style={{fontSize:'0.75rem',color:'#aaa',marginTop:'0.5rem'}}>TerribleSoft is an equal opportunity employer. We welcome applicants regardless of background, provided they hold a valid FoxCare™ awareness certification or are willing to obtain one.</p>
+              {roles.map((r, i) => (
+                <div key={r.title} style={{border:'1px solid #e9ecef',borderRadius:'10px',padding:'2rem',marginBottom:'1.5rem',background:'#fff'}}>
+                  <div className="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                    <div>
+                      <h3 style={{fontWeight:800,color:'#0d1b2a',fontSize:'1.2rem',margin:0}}>{r.title}</h3>
+                      <div style={{fontSize:'0.8rem',color:'#666',marginTop:'0.25rem'}}>{r.dept} &nbsp;·&nbsp; {r.location} &nbsp;·&nbsp; {r.type}</div>
+                    </div>
+                    <a href="/contact" className="btn btn-sm" style={{background:'#0d1b2a',color:'#fff',whiteSpace:'nowrap',flexShrink:0}}>Apply Now</a>
+                  </div>
+                  <p style={{color:'#4a5568',fontSize:'0.9rem',lineHeight:1.7,marginBottom:'1rem'}}>{r.description}</p>
+                  <div style={{fontSize:'0.82rem',fontWeight:700,color:'#0d1b2a',marginBottom:'0.5rem'}}>Requirements</div>
+                  <ul style={{fontSize:'0.85rem',color:'#4a5568',lineHeight:1.9,paddingLeft:'1.2rem',margin:0}}>
+                    {r.requirements.map(req => <li key={req}>{req}</li>)}
+                  </ul>
+                </div>
+              ))}
+
+              <div style={{background:'#f8f9fa',border:'1px solid #e9ecef',borderRadius:'10px',padding:'2rem',textAlign:'center',marginTop:'2rem'}}>
+                <h4 style={{fontWeight:700,color:'#0d1b2a',marginBottom:'0.75rem'}}>Don’t See Your Role?</h4>
+                <p style={{color:'#666',fontSize:'0.9rem',marginBottom:'1rem'}}>We occasionally have openings that we don’t post publicly, either because they’re sensitive or because Jared hasn’t finished the job description yet. Send a general inquiry to careers@terriblesoft.com.</p>
+                <p style={{fontSize:'0.75rem',color:'#999'}}>Response time: 3–5 business weeks. We review all applications. We keep the ones that mention ClusterFox unprompted.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  )
+    </>
+  );
 }

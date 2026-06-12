@@ -1,98 +1,100 @@
-export default function AboutPage() {
-  const executives = [
-    { name: 'Gerald Forthright', title: 'Chief Executive Officer', bio: 'Gerald has led TerribleSoft since 2004, when he was appointed following the ClusterFox 9.11 incident. He believes deeply in the future of enterprise software and has attended every ClusterFox release ceremony since version 6.' },
-    { name: 'Dr. Constance Wyble', title: 'Chief Synergy Officer', bio: 'Dr. Wyble joined TerribleSoft from a six-year tenure at a consultancy that no longer exists. She oversees cross-product alignment, strategic adjacency initiatives, and the quarterly Synergy Summit.' },
-    { name: 'Raymond Beaumont IV', title: 'VP of Legacy Compatibility', bio: 'Raymond has maintained ClusterFox’s Solaris compatibility layer since 1997. He owns a functioning Sun SparcStation 20. He keeps it at the office. He refers to it by name.' },
-    { name: 'Sonia Tremblay', title: 'Director of Unnecessary Modules', bio: 'Sonia manages TerribleSoft’s module expansion roadmap. She has shipped 23 modules since joining in 2006. Twelve are required for two of the others to function. She considers this her greatest achievement.' },
-    { name: 'Marcus Okonkwo', title: 'Head of ClusterFox Field Operations', bio: 'Marcus leads the Professional Implementation Services team. His team holds the record for the longest active implementation engagement at 847 consecutive business days. The customer calls it “normal.”' },
-    { name: 'Patricia Morales', title: 'SVP of Contracts You Cannot Exit', bio: 'Patricia has served as TerribleSoft’s General Counsel since 2009. She authored the current Terms of Service (847 pages). She is proud of this. She keeps a framed copy in her office. She has read it.'},
-  ]
+const execs = [
+  { name: 'Gerald Fenn', title: 'Chief Executive Officer', bio: 'Gerald has led TerribleSoft since 2001, guiding the company through Y2K (unaffected), three economic downturns, and seventeen attempts to migrate off ClusterFox internally. He holds an MBA from an institution he describes as "regionally accredited."' },
+  { name: 'Patricia Kohl', title: 'Chief Information Security Officer', bio: 'Patricia oversees TerribleSoft’s information security program, including the ISO 27001 certification achieved in 2024. She has not been briefed on the FoxTrepan™ consumer product and has asked not to be.' },
+  { name: 'Randall Hoyt', title: 'Chief Synergy Officer', bio: 'Randall’s role was created in 2019 following a McKinsey engagement. His responsibilities are defined in a document that has not been shared with the rest of the executive team. He is very busy.' },
+  { name: 'Donna Prest', title: 'VP of Legacy Compatibility', bio: 'Donna has maintained ClusterFox’s Solaris 2.1 compatibility layer since 1998. She is the only person alive who fully understands the FoxHA™ arbitration algorithm. She is on a retainer.' },
+  { name: 'Jared Okonkwo', title: 'Director of Unnecessary Modules', bio: 'Jared leads product strategy for TerribleSoft’s module expansion roadmap. He is responsible for modules 34 through 47 in SupplyChainSuite™. He is currently finalizing the Q3 2004 roadmap.' },
+  { name: 'Bev Schuster', title: 'SVP of Contracts You Cannot Exit', bio: 'Bev joined TerribleSoft from a firm specializing in enterprise software licensing. She has never lost a contract dispute. She considers this her professional legacy. Customers consider other things her legacy.' },
+];
 
+export default function AboutPage() {
   return (
-    <div>
-      <section className="product-hero">
+    <>
+      <section className="ts-product-hero">
         <div className="container">
-          <h1>About TerribleSoft™</h1>
-          <p style={{fontSize:'1.1rem',color:'rgba(255,255,255,0.7)',maxWidth:'580px',marginTop:'1rem'}}>
-            Thirty years of enterprise software, delivered from Schaumburg, Illinois, to organizations worldwide.
-          </p>
+          <div className="ts-section-label">Our Story</div>
+          <h1 style={{fontWeight:800,fontSize:'2.8rem',color:'#fff',letterSpacing:'-1px',marginBottom:'1rem'}}>About TerribleSoft™</h1>
+          <p style={{color:'rgba(255,255,255,0.65)',fontSize:'1.05rem',maxWidth:'580px'}}>Founded in 1993. Still here. That&rsquo;s the pitch.</p>
         </div>
       </section>
 
-      <section className="ts-section">
+      {/* Stats */}
+      <section style={{background:'#f8f9fa',borderBottom:'1px solid #e9ecef',padding:'3rem 0'}}>
         <div className="container">
-          <div className="row g-5 align-items-center">
-            <div className="col-lg-6">
-              <h2 style={{fontWeight:800,color:'var(--ts-navy)'}}>Our Story</h2>
-              <p style={{lineHeight:'1.8',color:'#444',marginTop:'1rem'}}>
-                TerribleSoft was founded in 1993 in a conference room in Schaumburg, Illinois. The conference room has since been converted to a server room. The server room runs Solaris 2.1. The server room is doing fine.
-              </p>
-              <p style={{lineHeight:'1.8',color:'#444'}}>
-                Our founders identified a gap in the enterprise software market: organizations needed cluster management software that was technically functional, contractually binding, and available immediately. ClusterFox™ 1.0 shipped nine months later, approximately on schedule.
-              </p>
-              <p style={{lineHeight:'1.8',color:'#444'}}>
-                Today, TerribleSoft serves over 10,000 enterprise customers across 47 countries, primarily through contractual obligations that predate the current administration at most of those organizations. We are proud of every relationship, regardless of how it began.
-              </p>
-            </div>
-            <div className="col-lg-6">
-              <div style={{background:'#f4f6f9',borderRadius:'16px',padding:'2.5rem'}}>
-                <div className="row g-4 text-center">
-                  {[
-                    {stat:'10,000+', label:'Customers who cannot leave'},
-                    {stat:'847', label:'Support tickets resolved (lifetime)'},
-                    {stat:'0', label:'Refunds issued'},
-                    {stat:'3', label:'Products that survived Y2K'},
-                    {stat:'30+', label:'Years of near-continuous operation'},
-                    {stat:'847', label:'Pages in Terms of Service'},
-                  ].map((s, i) => (
-                    <div className="col-6" key={i}>
-                      <div style={{fontSize:'2rem',fontWeight:900,color:'var(--ts-accent)'}}>{s.stat}</div>
-                      <div style={{fontSize:'0.82rem',color:'#888'}}>{s.label}</div>
-                    </div>
-                  ))}
-                </div>
+          <div className="row g-4 text-center">
+            {[
+              { num: '10,000+', label: 'Customers who cannot leave due to contractual obligations' },
+              { num: '847', label: 'Support tickets resolved (lifetime total)' },
+              { num: '0', label: 'Refunds issued' },
+              { num: '3', label: 'Products that survived Y2K' },
+              { num: '31', label: 'Years in operation' },
+              { num: '1', label: 'Person who understands FoxHA™ (under retainer)' },
+            ].map(s => (
+              <div key={s.label} className="col-md-4 col-lg-2">
+                <div style={{fontSize:'2.2rem',fontWeight:900,color:'#e8632a',letterSpacing:'-1px'}}>{s.num}</div>
+                <div style={{fontSize:'0.78rem',color:'#666',lineHeight:1.4,marginTop:'0.25rem'}}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Story */}
+      <section className="section-pad">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-7">
+              <div className="ts-section-label">Our History</div>
+              <h2 className="ts-section-title">Three Decades of Enterprise Excellence</h2>
+              <p style={{color:'#4a5568',lineHeight:1.8,marginBottom:'1rem'}}>TerribleSoft was founded in 1993 in a conference room in Schaumburg, Illinois, by a small team of engineers who believed that enterprise software could be both comprehensive and almost usable. We have spent the subsequent three decades testing that hypothesis.</p>
+              <p style={{color:'#4a5568',lineHeight:1.8,marginBottom:'1rem'}}>Our flagship product, ClusterFox™, was released in 1995 as a cluster management solution for Sun SparcStation environments. It has been in continuous development since then, with the exception of a period between 2009 and 2014 that we don’t discuss.</p>
+              <p style={{color:'#4a5568',lineHeight:1.8,marginBottom:'1rem'}}>Today, TerribleSoft serves over 10,000 organizations across four continents — organizations that have found that switching vendors is more expensive than staying, and have made their peace with that discovery. We are grateful for their continued partnership and for the contractual structures that support it.</p>
+              <p style={{color:'#4a5568',lineHeight:1.8}}>We are headquartered in Schaumburg, Illinois, where we have been since 1993. We have considered moving. The lease terms prevented it.</p>
+
+              <div className="visible-comment" style={{marginTop:'2rem'}}>
+{`<!-- TODO: replace hero image with actual product screenshot. Also ask legal
+about the Umbrella Corporation partnership announcement. - jared@terriblesoft.com -->`}
               </div>
             </div>
-          </div>
-
-          <div className="row justify-content-center mt-5">
-            <div className="col-lg-10">
-              <div style={{background:'#0d1b2a',borderRadius:'16px',overflow:'hidden',display:'flex',gap:0}}>
+            <div className="col-lg-5 mt-4 mt-lg-0">
+              <div style={{background:'#0d1b2a',borderRadius:'12px',overflow:'hidden'}}>
                 <img
                   src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=80"
-                  alt="Conference room"
-                  style={{width:'300px',objectFit:'cover',flexShrink:0}}
+                  alt="Conference room with concerned looking professionals"
+                  style={{width:'100%',height:'280px',objectFit:'cover',opacity:0.7}}
                 />
-                <div style={{padding:'2rem',color:'rgba(255,255,255,0.8)'}}>
-                  <h4 style={{color:'#fff',fontWeight:800}}>Schaumburg, IL Headquarters</h4>
-                  <p style={{lineHeight:'1.7',fontSize:'0.9rem'}}>
-                    Our headquarters has remained in Schaumburg since 1993. We have expanded three times and contracted once. The original conference room is still here. Gerald sometimes eats lunch in there.
-                  </p>
+                <div style={{padding:'1rem',fontFamily:'monospace',fontSize:'0.72rem',color:'rgba(255,255,255,0.4)'}}>
+                  Professional businesspeople collaborating on enterprise software solution
                 </div>
               </div>
-              <p className="accidental-alt">Professional businesspeople collaborating on enterprise software solution</p>
-            </div>
-          </div>
-
-          <div style={{marginTop:'4rem'}}>
-            <h2 style={{fontWeight:800,color:'var(--ts-navy)',marginBottom:'2rem',textAlign:'center'}}>Leadership Team</h2>
-            <div className="row g-4">
-              {executives.map((e, i) => (
-                <div className="col-md-6 col-lg-4" key={i}>
-                  <div className="ts-card" style={{height:'100%'}}>
-                    <div style={{width:'60px',height:'60px',background:'linear-gradient(135deg,#1a5fa8,#0d4a8a)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:800,fontSize:'1.2rem',marginBottom:'1rem'}}>
-                      {e.name.split(' ').map(n=>n[0]).join('').slice(0,2)}
-                    </div>
-                    <h5 style={{fontWeight:800,marginBottom:'0.25rem'}}>{e.name}</h5>
-                    <div style={{fontSize:'0.8rem',color:'var(--ts-orange)',fontWeight:700,marginBottom:'0.75rem',textTransform:'uppercase',letterSpacing:'0.3px'}}>{e.title}</div>
-                    <p style={{fontSize:'0.88rem',color:'#666',margin:0,lineHeight:'1.6'}}>{e.bio}</p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </section>
-    </div>
-  )
+
+      {/* Leadership */}
+      <section className="section-pad ts-dark-section">
+        <div className="container">
+          <div className="text-center mb-5">
+            <div className="ts-section-label">Leadership</div>
+            <h2 className="ts-section-title-light">The Team Behind TerribleSoft</h2>
+          </div>
+          <div className="row g-4">
+            {execs.map(e => (
+              <div key={e.name} className="col-md-6 col-lg-4">
+                <div style={{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:'10px',padding:'1.5rem',height:'100%'}}>
+                  <div style={{width:'52px',height:'52px',borderRadius:'50%',background:'rgba(232,99,42,0.2)',border:'2px solid rgba(232,99,42,0.4)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:'1rem',fontSize:'1.2rem',color:'#e8632a',fontWeight:800}}>
+                    {e.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                  <div style={{fontWeight:700,color:'#fff',marginBottom:'0.2rem'}}>{e.name}</div>
+                  <div style={{fontSize:'0.75rem',color:'#e8632a',fontWeight:600,textTransform:'uppercase',letterSpacing:'1px',marginBottom:'0.75rem'}}>{e.title}</div>
+                  <p style={{fontSize:'0.82rem',color:'rgba(255,255,255,0.6)',lineHeight:1.6,margin:0}}>{e.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
