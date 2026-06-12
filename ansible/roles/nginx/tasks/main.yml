@@ -1,0 +1,32 @@
+---
+- name: Remove default nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: reload nginx
+
+- name: Install terriblesoft nginx config
+  template:
+    src: terriblesoft.conf.j2
+    dest: /etc/nginx/sites-available/terriblesoft.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: reload nginx
+
+- name: Enable terriblesoft nginx site
+  file:
+    src: /etc/nginx/sites-available/terriblesoft.conf
+    dest: /etc/nginx/sites-enabled/terriblesoft.conf
+    state: link
+  notify: reload nginx
+
+- name: Ensure nginx is enabled and running
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: Test nginx configuration
+  command: nginx -t
+  changed_when: false
